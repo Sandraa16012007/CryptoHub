@@ -1,8 +1,13 @@
 # CryptoHub
 
-A modern, responsive cryptocurrency dashboard built with React and Vite. Track real-time prices, view detailed coin analytics, and explore crypto news and features—all in one place.
+A modern, beginner-friendly cryptocurrency dashboard built with React and Vite.  
+CryptoHub allows users to track real-time crypto prices, analyze coins with charts, and explore crypto-related content—all in one place.
 
-## 🌟 Features
+## 🎯 Who Is This Project For?
+
+This project is ideal for beginners who want to learn React, APIs, and open-source contribution through a real-world project.
+
+## 🌟 Key Features
 
 - 🚀 Live crypto prices and market data (powered by CoinGecko API)
 - 📈 Interactive price charts (powered by Victory)
@@ -22,10 +27,13 @@ A modern, responsive cryptocurrency dashboard built with React and Vite. Track r
 - **Blog:** Crypto news and beginner-friendly guides
 - **Features:** Updates and upcoming feature announcements
 
-## 🚀 Getting Started
+## 🚀 Getting Started (Local Setup)
 
 ### Prerequisites
-- Node.js 14+ and npm
+Before starting, make sure you have:
+- Node.js version 14 or above
+- npm (comes with Node.js)
+- Git
 
 ### Installation
 
@@ -54,6 +62,12 @@ A modern, responsive cryptocurrency dashboard built with React and Vite. Track r
 
 5. **Open in your browser:**
    Visit [http://localhost:5173](http://localhost:5173)
+
+### ❗ Common Issues
+
+- If `npm install` fails, make sure Node.js is installed correctly.
+- If the app doesn’t load, check that the API key is added correctly in the `.env` file.
+- Restart the dev server after changing environment variables.
 
 ### Build for Production
 ```sh
@@ -113,9 +127,11 @@ CryptoHub/
 
 ## 🤝 Contributing
 
-We welcome contributions from the community! Whether you're fixing bugs, adding features, or improving documentation, your help is appreciated.
+We welcome contributions from the community, especially from first-time open-source contributors!
+Whether you're fixing bugs, adding features, or improving documentation, your help is appreciated.
 
 ### How to Contribute
+No prior open-source experience is required to contribute to this project.
 
 1. **Fork the repository** by clicking the "Fork" button at the top-right of this page
 2. **Clone your fork:**
