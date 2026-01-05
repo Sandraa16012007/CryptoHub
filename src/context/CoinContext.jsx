@@ -11,7 +11,14 @@ export const CoinContextProvider = (props) => {
   });
   const [isLoading, setIsLoading] = useState(false);
 
+  /* 
+    Adding error handling and loading states to API calls ensures a robust
+    data layer. We use useCallback to memoize the fetch function and useMemo
+    for the context value to prevent unnecessary re-renders.
+  */
+
   const fetchAllCoin = useCallback(async () => {
+    setIsLoading(true);
     const apiKey = import.meta.env.VITE_CG_API_KEY;
     const options = {
       method: "GET",
@@ -25,28 +32,25 @@ export const CoinContextProvider = (props) => {
       ? `https://api.coingecko.com/api/v3/coins/markets?vs_currency=${currency.name}&x_cg_demo_api_key=${apiKey}`
       : `https://api.coingecko.com/api/v3/coins/markets?vs_currency=${currency.name}`;
 
-    fetch(url, options)
-      .then((res) => {
-        if (!res.ok) {
-          throw new Error(`API Error: ${res.status}`);
-        }
-        return res.json();
-      })
-      .then((res) => {
-        if (Array.isArray(res)) {
-          setAllCoin(res);
-        } else {
-          console.error("Invalid API response:", res);
-          setAllCoin([]);
-        }
-      })
-      .catch((err) => {
-        console.error("Failed to fetch coins:", err);
+    try {
+      const res = await fetch(url, options);
+      if (!res.ok) {
+        throw new Error(`API Error: ${res.status}`);
+      }
+      const data = await res.json();
+
+      if (Array.isArray(data)) {
+        setAllCoin(data);
+      } else {
+        console.error("Invalid API response:", data);
         setAllCoin([]);
-      })
-      .finally(() => {
-        setIsLoading(false);
-      });
+      }
+    } catch (err) {
+      console.error("Failed to fetch coins:", err);
+      setAllCoin([]);
+    } finally {
+      setIsLoading(false);
+    }
   }, [currency.name]);
 
   useEffect(() => {
@@ -57,6 +61,7 @@ export const CoinContextProvider = (props) => {
     allCoin,
     currency,
     setCurrency,
+    isLoading
     isLoading,
   }), [allCoin, currency, isLoading]);
   return (
