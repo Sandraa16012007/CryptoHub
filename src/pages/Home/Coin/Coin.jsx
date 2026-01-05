@@ -57,7 +57,7 @@ const Coin = () => {
 
   if (!coindata || !historicaldata) {
     return (
-      <div className="spinner">
+      <div className="coin-loader">
         <div className="spin"></div>
       </div>
     );

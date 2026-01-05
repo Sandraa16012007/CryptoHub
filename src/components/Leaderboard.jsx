@@ -11,7 +11,9 @@ function Leaderboard() {
         return (
             <div className="leaderboard-container">
                 <div className="leaderboard-loading">
-                    <div className="spinner"></div>
+                    <div className="coin-loader">
+                        <div className="spin"></div>
+                    </div>
                     <p>Loading leaderboard...</p>
                 </div>
             </div>
