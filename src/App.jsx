@@ -1,3 +1,4 @@
+// App.jsx
 import React, { useEffect, useContext } from "react";
 import Navbar from "./components/Navbar";
 import { Routes, Route, useLocation } from "react-router-dom";
@@ -21,7 +22,7 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 import { CoinContext } from "./context/CoinContext";
 import LoadingSpinner from "./components/LoadingSpinner";
-
+import BlogArticle from './data/BlogArticle';
 
 const App = () => {
   const { isLoading } = useContext(CoinContext);
@@ -47,8 +48,14 @@ const App = () => {
             <Route path="/" element={<Home />} />
             <Route path="/coin/:coinId" element={<Coin />} />
             <Route path="/pricing" element={<Pricing />} />
+            
+            {/* Blog Routes */}
             <Route path="/blog" element={<Blog />} />
-            <Route path="/blog/:id" element={<BlogDetail />} />
+            <Route path="/blog/:slug" element={<BlogArticle />} />
+            
+            {/* Keep BlogDetail for backward compatibility if needed */}
+            {/* <Route path="/blog/article/:id" element={<BlogDetail />} /> */}
+            
             <Route path="/features" element={<Features />} />
             <Route path="/signup" element={<Signup />} />
             <Route path="/login" element={<Login />} />
