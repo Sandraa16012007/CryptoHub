@@ -421,6 +421,18 @@ CryptoHub/
 
 ---
 
+## 📖 Extended Documentation
+
+Detailed guides to help you get started:
+- ❓ [General FAQ](./docs/FAQ.md)
+- 🔥 [Full Firebase & OAuth Setup](./docs/FIREBASE_SETUP.md)
+- 🎨 [Design System & Branding](./docs/DESIGN.md)
+- 🛠 [Advanced Troubleshooting](./docs/TROUBLESHOOTING.md)
+
+<img src="https://user-images.githubusercontent.com/74038190/212284100-561aa473-3905-4a80-b561-0d28506553ee.gif" width="100%">
+
+---
+
 <h2 id="issue-creation">✴️ Issue Creation</h2>
 
 Found a bug or have a feature request?
