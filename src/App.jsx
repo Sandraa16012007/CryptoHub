@@ -111,6 +111,10 @@ const App = () => {
               
               {/* Add 404 Route if you implemented it earlier */}
               {/* <Route path="*" element={<NotFound />} /> */}
+
+              <Route path="/privacy" element={<PrivacyPolicy />} />
+
+
             </Routes>
             {!isDashboard && <Footer />}
           </div>
