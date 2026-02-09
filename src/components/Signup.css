@@ -7,7 +7,7 @@
   padding: 40px 35px !important; /* Override any existing padding */
 }
 
-/* Fix form spacing for signup - more fields than login */
+/* Fix form spacing for signup  fields than login */
 .auth-form {
   margin-top: 10px !important;
 }
