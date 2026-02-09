@@ -1,7 +1,38 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
 
+/* Pricing Page Theme Variables */
+:root {
+  --pricing-bg: var(--bg-deep);
+  --pricing-card-bg: var(--glass-panel-bg);
+  --pricing-card-inner-bg: var(--dashboard-bg-elevated);
+  --pricing-card-border: var(--border-color);
+  --pricing-table-bg: var(--glass-panel-bg);
+  --pricing-table-header-bg: var(--dashboard-bg-secondary);
+  --pricing-table-border: var(--border-color);
+  --pricing-text-primary: #1e293b;
+  --pricing-text-secondary: #475569;
+  --pricing-text-muted: #94a3b8;
+  --gradient-primary: linear-gradient(135deg, #7c3aed 0%, #db2777 100%);
+}
+
+:root[class~="dark"] {
+  --pricing-bg: linear-gradient(180deg, rgba(15, 23, 42, 0.98) 0%, rgba(7, 14, 30, 1) 100%);
+  --pricing-card-bg: rgba(255, 255, 255, 0.12);
+  --pricing-card-inner-bg: rgba(255, 255, 255, 0.08);
+  --pricing-card-border: rgba(255, 255, 255, 0.15);
+  --pricing-table-bg: rgba(17, 24, 39, 0.95);
+  --pricing-table-header-bg: rgba(15, 23, 42, 0.98);
+  --pricing-table-border: rgba(71, 85, 105, 0.3);
+  --pricing-text-primary: #e2e8f0;
+  --pricing-text-secondary: #94a3b8;
+  --pricing-text-muted: #64748b;
+  --gradient-primary: linear-gradient(135deg, #9333ea 0%, #db2777 100%);
+}
+
 /* Base Reset */
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
 
@@ -9,18 +40,20 @@ body {
   font-family: 'Inter', sans-serif;
   line-height: 1.6;
 }
-section.py-20.px-8 {
-    max-width: 1200px;
 
+section.py-20.px-8 {
+  max-width: 1200px;
 }
+
 section.py-20.px-6 {
-    max-width: 1200px;}
+  max-width: 1200px;
+}
 
 /* Glass Panels */
 .glass-panel {
-  background: rgba(255, 255, 255, 0.12);
+  background: var(--pricing-card-bg);
   backdrop-filter: blur(24px);
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  border: 1px solid var(--pricing-card-border);
   border-radius: 1.5rem;
   position: relative;
   overflow: visible !important;
@@ -33,14 +66,14 @@ section.py-20.px-6 {
   margin-top: 2.75rem !important;
 }
 
-.glass-panel.rounded-3xl.p-1 > div {
-  background: rgba(255, 255, 255, 0.08);
+.glass-panel.rounded-3xl.p-1>div {
+  background: var(--pricing-card-inner-bg);
   border-radius: 1.5rem !important;
   padding: 3rem 2rem 2.5rem !important;
   min-height: 32rem !important;
   display: flex !important;
   flex-direction: column !important;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--pricing-card-border);
 }
 
 /* PERFECT Most Popular Badge */
@@ -55,31 +88,29 @@ section.py-20.px-6 {
   font-size: 0.875rem !important;
   font-weight: 900 !important;
   border-radius: 50rem !important;
-  box-shadow: 0 16px 40px rgba(251, 191, 36, 0.5);
+  box-shadow: 0 16px 40px rgba(251, 191, 36, 0.3);
   white-space: nowrap;
 }
 
 
-.py-24.px-6.bg-gradient-to-b {
-  background: linear-gradient(180deg, 
-    rgba(15, 23, 42, 0.98) 0%, 
-    rgba(7, 14, 30, 1) 100%) !important;
+.pricing-section {
+  background: var(--pricing-bg) !important;
   padding: 6rem 1.5rem !important;
   position: relative;
 }
 
-.py-24.px-6.bg-gradient-to-b::before {
+.pricing-section::before {
   content: '';
   position: absolute;
   inset: 0;
-  background: 
-    radial-gradient(ellipse 30% 30% at 25% 75%, rgba(139, 92, 246, 0.2) 0%, transparent 50%),
-    radial-gradient(ellipse 25% 25% at 75% 25%, rgba(236, 72, 153, 0.2) 0%, transparent 50%);
+  background:
+    radial-gradient(ellipse 30% 30% at 25% 75%, rgba(139, 92, 246, 0.1) 0%, transparent 50%),
+    radial-gradient(ellipse 25% 25% at 75% 25%, rgba(236, 72, 153, 0.1) 0%, transparent 50%);
   z-index: 0;
 }
 
 /* FIXED: Table Container */
-.overflow-x-auto > div {
+.overflow-x-auto>div {
   position: relative;
   z-index: 10;
 }
@@ -87,21 +118,19 @@ section.py-20.px-6 {
 .max-w-7xl table {
   width: 100% !important;
   min-width: 0;
-  background: rgba(17, 24, 39, 0.95) !important;
+  background: var(--pricing-table-bg) !important;
   backdrop-filter: blur(40px) !important;
-  border: 1px solid rgba(71, 85, 105, 0.3) !important;
+  border: 1px solid var(--pricing-table-border) !important;
   border-radius: 1.75rem !important;
-  box-shadow: 
-    0 35px 80px rgba(0, 0, 0, 0.6),
-    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  box-shadow: var(--dashboard-shadow-lg);
   overflow: hidden !important;
   table-layout: fixed !important;
 }
 
 /* Table Headers */
 table thead tr th {
-  background: rgba(15, 23, 42, 0.98) !important;
-  border-bottom: 1px solid rgba(71, 85, 105, 0.3) !important;
+  background: var(--pricing-table-header-bg) !important;
+  border-bottom: 1px solid var(--pricing-table-border) !important;
   position: relative;
 }
 
@@ -111,7 +140,7 @@ table thead th:first-child {
   width: 25% !important;
   font-size: 1.25rem !important;
   font-weight: 800 !important;
-  color: #e2e8f0 !important;
+  color: var(--pricing-text-primary) !important;
 }
 
 table thead th:not(:first-child) {
@@ -133,14 +162,13 @@ table thead th .text-2xl {
   background-clip: text !important;
   -webkit-background-clip: text !important;
   -webkit-text-fill-color: transparent !important;
-  text-fill-color: transparent !important;
   margin-bottom: 0.5rem;
   display: block !important;
 }
 
 table thead th .text-sm {
   font-size: 0.8125rem !important;
-  color: #94a3b8 !important;
+  color: var(--pricing-text-muted) !important;
   font-weight: 700 !important;
   text-transform: uppercase !important;
   letter-spacing: 0.1em !important;
@@ -163,7 +191,7 @@ table th .absolute.-top-4 {
 /* Table Body */
 table tbody tr {
   transition: all 0.3s ease;
-  border-bottom: 1px solid rgba(71, 85, 105, 0.15);
+  border-bottom: 1px solid var(--pricing-table-border);
 }
 
 table tbody tr:hover {
@@ -173,21 +201,22 @@ table tbody tr:hover {
 table tbody td {
   padding: 1.75rem 1.5rem !important;
   vertical-align: middle !important;
-  border-right: 1px solid rgba(71, 85, 105, 0.1);
-  color: #cbd5e1 !important;
+  border-right: 1px solid var(--pricing-table-border);
+  color: var(--pricing-text-secondary) !important;
 }
 
 table tbody td:first-child {
   font-weight: 700 !important;
   font-size: 1.125rem !important;
-  background: rgba(15, 23, 42, 0.7) !important;
+  background: var(--pricing-table-header-bg) !important;
   width: 25% !important;
+  color: var(--pricing-text-primary) !important;
 }
 
 table tbody td:not(:first-child) {
   text-align: center !important;
   padding: 1.75rem 1rem !important;
-  border-right: 1px solid rgba(71, 85, 105, 0.1);
+  border-right: 1px solid var(--pricing-table-border);
 }
 
 table tbody td:last-child {
@@ -210,7 +239,8 @@ table tbody td:last-child {
 
 
 .w-full.py-6.px-8.rounded-2xl {
-  height: 4.5rem !important; /* FIXED: Fixed height */
+  height: 4.5rem !important;
+  /* FIXED: Fixed height */
   min-height: 4.5rem !important;
   display: flex !important;
   align-items: center !important;
@@ -225,38 +255,30 @@ table tbody td:last-child {
   letter-spacing: 0.08em !important;
   border: none !important;
   cursor: pointer !important;
-  margin-top: auto !important; /* FIXED: Push to bottom */
+  margin-top: auto !important;
+  /* FIXED: Push to bottom */
 }
 
-/* Trader Button (Highlighted) */
-.bg-gradient-to-r.from-purple-600.to-pink-600 {
-  background: linear-gradient(135deg, #9333ea 0%, #ec4899 50%, #3b82f6 100%) !important;
-  box-shadow: 
-    0 16px 40px rgba(147, 51, 234, 0.5),
-    0 8px 24px rgba(0, 0, 0, 0.3) !important;
-  color: #fff !important;
+/* Global CTA Button Look - All Purple/Pink Gradient */
+.w-full.py-6.px-8.rounded-2xl {
+  background: var(--gradient-primary) !important;
+  color: #ffffff !important;
+  box-shadow: 0 16px 40px rgba(124, 58, 237, 0.3) !important;
+  border: none !important;
+  position: relative !important;
+  z-index: 30 !important;
 }
 
-.bg-gradient-to-r.from-purple-600.to-pink-600:hover {
-  transform: translateY(-3px) !important;
-  box-shadow: 
-    0 24px 60px rgba(147, 51, 234, 0.6),
-    0 12px 32px rgba(0, 0, 0, 0.4) !important;
+.w-full.py-6.px-8.rounded-2xl:hover {
+  transform: translateY(-4px) scale(1.05) !important;
+  box-shadow:
+    0 24px 60px rgba(147, 51, 234, 0.5),
+    0 12px 32px rgba(0, 0, 0, 0.3) !important;
 }
 
-/* Explorer/Pro Buttons */
-.bg-white\/80, .dark\:bg-gray-800\/80 {
-  background: rgba(255, 255, 255, 0.95) !important;
-  color: #1e293b !important;
-  border: 2px solid rgba(255, 255, 255, 0.4) !important;
-  font-weight: 800 !important;
-  backdrop-filter: blur(20px) !important;
-}
-
-.dark .bg-white\/80 {
-  background: rgba(30, 41, 59, 0.95) !important;
-  color: #f1f5f9 !important;
-  border-color: rgba(71, 85, 105, 0.4) !important;
+/* Specific highlight logic (optional differentiator) */
+.glass-panel.ring-4 .w-full.py-6.px-8.rounded-2xl {
+  box-shadow: 0 20px 50px rgba(147, 51, 234, 0.5) !important;
 }
 
 /* Button Inner Content */
@@ -278,11 +300,11 @@ table tbody td:last-child {
   .overflow-x-auto {
     scrollbar-width: thin;
   }
-  
+
   table {
     min-width: 650px !important;
   }
-  
+
   .w-full.py-6.px-8.rounded-2xl {
     height: 3.75rem !important;
     font-size: 1rem !important;

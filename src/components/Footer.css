@@ -1,9 +1,23 @@
 /* Main Container */
+:root {
+  --footer-bg: linear-gradient(180deg, #f8fafc 0%, #e2e8f0 100%);
+  --footer-text: #475569;
+  --footer-border: rgba(0, 0, 0, 0.08);
+  --footer-heading: #1e293b;
+}
+
+:root[class~="dark"] {
+  --footer-bg: linear-gradient(180deg, #0b0028 0%, #1a0033 100%);
+  --footer-text: #b8bdd0;
+  --footer-border: rgba(255, 255, 255, 0.08);
+  --footer-heading: #fff;
+}
+
 .footer-container {
   width: 100%;
-  background: linear-gradient(180deg, #0b0028 0%, #1a0033 100%);
-  color: #fff;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  background: var(--footer-bg);
+  color: var(--footer-heading);
+  border-top: 1px solid var(--footer-border);
   position: relative;
   overflow: hidden;
 }
@@ -52,7 +66,7 @@
 }
 
 .footer-brand p {
-  color: #b8bdd0;
+  color: var(--footer-text);
   font-size: 15px;
   line-height: 1.6;
   margin-bottom: 24px;
@@ -84,7 +98,7 @@
 .footer-newsletter h4 {
   font-size: 16px;
   font-weight: 700;
-  color: #fff;
+  color: var(--footer-heading);
   margin-bottom: 20px;
   letter-spacing: -0.02em;
 }
@@ -100,7 +114,7 @@
 }
 
 .footer-links a {
-  color: #b8bdd0;
+  color: var(--footer-text);
   text-decoration: none;
   font-size: 14px;
   font-weight: 500;
@@ -109,13 +123,13 @@
 }
 
 .footer-links a:hover {
-  color: #fff;
+  color: var(--footer-heading);
   transform: translateX(4px);
 }
 
 /* Newsletter */
 .footer-newsletter p {
-  color: #b8bdd0;
+  color: var(--footer-text);
   font-size: 14px;
   margin-bottom: 20px;
 }
@@ -128,18 +142,18 @@
 
 .newsletter-form input {
   flex: 1;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: var(--glass-panel-bg);
+  border: 1px solid var(--footer-border);
   border-radius: 12px;
   padding: 14px 18px;
-  color: #fff;
+  color: var(--footer-heading);
   font-size: 15px;
   backdrop-filter: blur(20px);
   transition: all 0.3s ease;
 }
 
 .newsletter-form input::placeholder {
-  color: #8f9bba;
+  color: var(--footer-text);
 }
 
 .newsletter-form input:focus {
@@ -194,7 +208,7 @@
 
 /* Bottom Section */
 .footer-bottom-section {
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-top: 1px solid var(--footer-border);
   padding-top: 32px;
   display: flex;
   justify-content: space-between;
@@ -212,12 +226,12 @@
   width: 44px;
   height: 44px;
   border-radius: 12px;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: var(--glass-card-bg);
+  border: 1px solid var(--footer-border);
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #b8bdd0;
+  color: var(--footer-text);
   font-size: 18px;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   backdrop-filter: blur(10px);
@@ -226,7 +240,7 @@
 .social-links a:hover {
   background: rgba(121, 40, 202, 0.2);
   border-color: #7928ca;
-  color: #fff;
+  color: var(--footer-heading);
   transform: translateY(-3px);
   box-shadow: 0 10px 30px rgba(121, 40, 202, 0.3);
 }
@@ -237,13 +251,13 @@
 
 .footer-bottom p {
   font-size: 13px;
-  color: #8f9bba;
+  color: var(--footer-text);
   margin: 0;
   line-height: 1.5;
 }
 
 .footer-bottom a {
-  color: #b8bdd0;
+  color: var(--footer-text);
   text-decoration: none;
   margin: 0 12px;
 }
@@ -251,28 +265,34 @@
 .footer-bottom a:hover {
   color: #7928ca;
 }
-.footer-newsletter{
-  max-width:100%;
+
+.footer-newsletter {
+  max-width: 100%;
 }
-.footer-newsletter form{
-  display:flex;
-  flex-wrap:wrap;
-  gap:10px;
+
+.footer-newsletter form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
 }
-.footer-newsletter form input{
+
+.footer-newsletter form input {
   border-radius: 5px;
-  flex:1;
-padding:5px 0px;
+  flex: 1;
+  padding: 5px 0px;
 }
-.footer-newsletter form input::placeholder{
-  padding-left:10px;
+
+.footer-newsletter form input::placeholder {
+  padding-left: 10px;
 }
-button{
+
+button {
   border-radius: 5px;
-  padding:5px 10px;
+  padding: 5px 10px;
   background-color: #666;
 }
-button:hover{
+
+button:hover {
   background-color: #7928ca;
 }
 
@@ -282,6 +302,7 @@ button:hover{
     opacity: 0;
     transform: translateY(10px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -294,7 +315,7 @@ button:hover{
     grid-template-columns: 1fr 1fr 1fr;
     gap: 32px;
   }
-  
+
   .footer-brand {
     grid-column: span 3;
   }
@@ -304,30 +325,30 @@ button:hover{
   .footer-content {
     padding: 40px 20px 20px;
   }
-  
+
   .footer-main {
     grid-template-columns: 1fr;
     gap: 32px;
   }
-  
+
   .footer-brand {
     text-align: center;
   }
-  
+
   .payment-methods {
     justify-content: center;
   }
-  
+
   .footer-bottom-section {
     flex-direction: column;
     text-align: center;
   }
-  
+
   .footer-bottom {
     text-align: center;
     order: -1;
   }
-  
+
   .newsletter-form {
     max-width: 100%;
   }
@@ -337,11 +358,11 @@ button:hover{
   .social-links {
     justify-content: center;
   }
-  
+
   .payment-methods {
     gap: 6px;
   }
-  
+
   .payment-icon {
     width: 36px;
     height: 24px;

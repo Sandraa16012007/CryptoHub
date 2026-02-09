@@ -110,10 +110,10 @@ const CoinWrapper = () => {
                                     {getFirstName().charAt(0).toUpperCase()}
                                 </div>
                                 <div className="flex-1 min-w-0">
-                                    <p className={`font-bold truncate text-base ${isDark ? 'text-white' : 'text-gray-900'}`}>
+                                    <p className="font-bold truncate text-base text-gray-900 dark:text-white">
                                         {getFirstName()}
                                     </p>
-                                    <p className={`text-xs truncate ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
+                                    <p className="text-xs truncate text-gray-600 dark:text-gray-400">
                                         {currentUser?.email}
                                     </p>
                                 </div>
@@ -170,7 +170,7 @@ const CoinWrapper = () => {
                             : 'bg-white hover:bg-gray-100 border border-gray-200'
                             }`}
                     >
-                        <span className={`text-2xl ${isDark ? 'text-white' : 'text-gray-900'}`}>☰</span>
+                        <span className="text-2xl text-gray-900 dark:text-white">☰</span>
                     </button>
 
                     {/* Coin component */}

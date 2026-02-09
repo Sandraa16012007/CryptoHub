@@ -75,13 +75,10 @@ const Dashboard = () => {
   ];
 
   return (
-    <div className={`min-h-screen flex ${isDark ? 'bg-[#0a0a1a]' : 'bg-gradient-to-br from-gray-50 to-gray-100'}`}>
+    <div className="min-h-screen flex bg-[var(--dashboard-bg-primary)] transition-colors duration-300">
       <aside
         className={`fixed lg:sticky top-0 left-0 h-screen transition-all duration-300 z-50 ${sidebarOpen ? "w-72" : "w-0 lg:w-20"
-          } overflow-hidden ${isDark
-            ? 'bg-[#0f0f1f] border-[rgba(255,255,255,0.08)]'
-            : 'bg-white border-gray-200'
-          } backdrop-blur-2xl border-r shadow-2xl`}
+          } overflow-hidden bg-[var(--dashboard-bg-elevated)] border-r border-[var(--dashboard-border-subtle)] backdrop-blur-2xl shadow-2xl`}
       >
         <div className="flex flex-col h-full p-5">
           <div className="flex items-center justify-between mb-8">
@@ -99,31 +96,25 @@ const Dashboard = () => {
             )}
             <button
               onClick={() => setSidebarOpen(!sidebarOpen)}
-              className={`p-2.5 rounded-lg transition-all duration-200 ${isDark
-                ? 'hover:bg-[rgba(0,217,255,0.1)]'
-                : 'hover:bg-gray-100'
-                }`}
+              className="p-2.5 rounded-lg transition-all duration-200 hover:bg-[var(--dashboard-border-hover)] text-[var(--dashboard-text-secondary)]"
             >
-              <span className={`text-lg ${isDark ? 'text-gray-300' : 'text-gray-600'}`}>
+              <span className="text-lg">
                 {sidebarOpen ? "◀" : "▶"}
               </span>
             </button>
           </div>
 
           {sidebarOpen && (
-            <div className={`mb-6 p-4 rounded-xl border transition-all duration-200 ${isDark
-              ? 'bg-[rgba(255,255,255,0.02)] border-[rgba(255,255,255,0.08)] hover:border-[rgba(0,217,255,0.2)]'
-              : 'bg-gradient-to-br from-purple-50 to-blue-50 border-purple-200 hover:border-purple-300'
-              }`}>
+            <div className="mb-6 p-4 rounded-xl border transition-all duration-200 bg-[var(--dashboard-bg-secondary)] border-[var(--dashboard-border-medium)] hover:border-[var(--dashboard-border-hover)]">
               <div className="flex items-center gap-3">
-                <div className="w-14 h-14 rounded-full bg-gradient-to-br from-[#00d9ff] to-[#00a8cc] flex items-center justify-center text-2xl font-bold shadow-lg ring-4 ring-[rgba(0,217,255,0.1)] text-[#0a0a1a]">
+                <div className="w-14 h-14 rounded-full bg-gradient-to-br from-[#00d9ff] to-[#00a8cc] flex items-center justify-center text-2xl font-bold shadow-lg ring-4 ring-[rgba(0,217,255,0.12)] text-[#0a0a1a]">
                   {getFirstName().charAt(0).toUpperCase()}
                 </div>
                 <div className="flex-1 min-w-0">
-                  <p className={`font-bold truncate text-base ${isDark ? 'text-white' : 'text-gray-900'}`}>
+                  <p className="font-bold truncate text-base text-[var(--dashboard-text-primary)]">
                     {getFirstName()}
                   </p>
-                  <p className={`text-xs truncate ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
+                  <p className="text-xs truncate text-[var(--dashboard-text-muted)]">
                     {currentUser?.email}
                   </p>
                 </div>
@@ -137,10 +128,8 @@ const Dashboard = () => {
                 key={index}
                 onClick={() => navigate(item.path)}
                 className={`w-full flex items-center gap-3 px-4 py-3.5 rounded-xl transition-all duration-200 font-medium ${item.active
-                  ? "bg-[rgba(0,217,255,0.1)] text-[#00d9ff] border border-[rgba(0,217,255,0.2)]"
-                  : isDark
-                    ? "text-gray-300 hover:bg-[rgba(0,217,255,0.05)] hover:text-[#00d9ff]"
-                    : "text-gray-700 hover:bg-purple-50 hover:text-purple-700"
+                  ? "bg-[var(--dashboard-accent-cyan-dim)] text-[var(--dashboard-accent-cyan)] border border-[var(--dashboard-border-active)]"
+                  : "text-[var(--dashboard-text-secondary)] hover:bg-[var(--dashboard-border-subtle)] hover:text-[var(--dashboard-accent-cyan)]"
                   } ${!sidebarOpen && "justify-center"}`}
               >
                 <span className={sidebarOpen ? "" : ""}>{item.icon}</span>
@@ -152,21 +141,15 @@ const Dashboard = () => {
           {sidebarOpen && (
             <div className={`mt-auto space-y-3`}>
               {/* Theme Toggle Section */}
-              <div className={`p-3 rounded-xl border ${isDark
-                ? 'bg-[rgba(255,255,255,0.02)] border-[rgba(255,255,255,0.05)]'
-                : 'bg-gray-50 border-gray-200'
-                }`}>
+              <div className="p-3 rounded-xl border bg-[var(--dashboard-bg-secondary)] border-[var(--dashboard-border-subtle)]">
                 <div className="flex items-center justify-between mb-2">
-                  <span className={`text-sm font-medium ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>
+                  <span className="text-sm font-medium text-[var(--dashboard-text-secondary)]">
                     Theme
                   </span>
                 </div>
                 <button
                   onClick={toggleTheme}
-                  className={`w-full flex items-center justify-between gap-3 px-4 py-2.5 rounded-lg transition-all duration-200 ${isDark
-                    ? 'bg-[rgba(0,217,255,0.1)] hover:bg-[rgba(0,217,255,0.15)] text-white'
-                    : 'bg-white hover:bg-gray-100 text-gray-900 border border-gray-200'
-                    }`}
+                  className="w-full flex items-center justify-between gap-3 px-4 py-2.5 rounded-lg transition-all duration-200 bg-[var(--dashboard-bg-elevated)] hover:bg-[var(--dashboard-border-subtle)] text-[var(--dashboard-text-primary)] border border-[var(--dashboard-border-medium)]"
                 >
                   <span className="text-lg">{isDark ? "🌙" : "☀️"}</span>
                   <span className="flex-1 text-left font-medium">{isDark ? "Dark" : "Light"}</span>
@@ -218,12 +201,9 @@ const Dashboard = () => {
         <div className="p-6 lg:p-10 max-w-[1600px] mx-auto">
           <button
             onClick={() => setSidebarOpen(!sidebarOpen)}
-            className={`lg:hidden mb-6 p-3 rounded-xl transition-all duration-200 ${isDark
-              ? 'bg-[rgba(0,217,255,0.1)] hover:bg-[rgba(0,217,255,0.15)]'
-              : 'bg-white hover:bg-gray-100 border border-gray-200'
-              }`}
+            className="lg:hidden mb-6 p-3 rounded-xl transition-all duration-200 bg-[var(--dashboard-bg-elevated)] hover:bg-[var(--dashboard-border-subtle)] border border-[var(--dashboard-border-medium)]"
           >
-            <span className={`text-2xl ${isDark ? 'text-white' : 'text-gray-900'}`}>☰</span>
+            <span className="text-2xl text-[var(--dashboard-text-primary)]">☰</span>
           </button>
 
           <div className="mb-10">
@@ -235,89 +215,71 @@ const Dashboard = () => {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 11.5V14m0-2.5v-6a1.5 1.5 0 113 0m-3 6a1.5 1.5 0 00-3 0v2a7.5 7.5 0 0015 0v-5a1.5 1.5 0 00-3 0m-6-3V11m0-5.5v-1a1.5 1.5 0 013 0v1m0 0V11m0-5.5a1.5 1.5 0 013 0v3m0 0V11" />
               </svg>
             </h1>
-            <p className={`text-lg ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
+            <p className="text-lg text-[var(--dashboard-text-secondary)]">
               Welcome back to your crypto dashboard
             </p>
           </div>
 
           <div className="grid grid-cols-1 xl:grid-cols-3 gap-6 mb-6">
-            <div className={`xl:col-span-2 rounded-2xl p-8 border transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 ${isDark
-              ? 'bg-[#14141f] border-[rgba(255,255,255,0.08)] shadow-[0_8px_32px_0_rgba(0,0,0,0.3)]'
-              : 'bg-white border-gray-200 shadow-xl'
-              }`}>
+            <div className="xl:col-span-2 rounded-2xl p-8 border transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 bg-[var(--dashboard-bg-card)] border-[var(--dashboard-border-subtle)] shadow-[var(--dashboard-shadow-md)]">
               <div className="flex items-center gap-4 mb-6">
-                <div className="w-12 h-12 rounded-xl bg-[rgba(0,217,255,0.1)] border border-[rgba(0,217,255,0.2)] flex items-center justify-center shadow-lg">
-                  <svg className="w-6 h-6 text-[#00d9ff]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div className="w-12 h-12 rounded-xl bg-[var(--dashboard-accent-cyan-dim)] border border-[var(--dashboard-accent-cyan-hover)] flex items-center justify-center shadow-lg">
+                  <svg className="w-6 h-6 text-[var(--dashboard-accent-cyan)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
                   </svg>
                 </div>
-                <h2 className={`text-2xl font-bold ${isDark ? 'text-white' : 'text-gray-900'}`}>
+                <h2 className="text-2xl font-bold text-[var(--dashboard-text-primary)]">
                   Portfolio Overview
                 </h2>
               </div>
               <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-                <div className={`p-5 rounded-xl border transition-all duration-200 hover:scale-105 ${isDark
-                  ? 'bg-[rgba(255,255,255,0.02)] border-[rgba(255,255,255,0.08)]'
-                  : 'bg-gradient-to-br from-purple-50 to-purple-100 border-purple-200'
-                  }`}>
-                  <p className={`text-sm mb-2 ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>Total Value</p>
-                  <p className={`text-3xl font-bold ${isDark ? 'text-white' : 'text-gray-900'}`}>$0.00</p>
+                <div className="p-5 rounded-xl border transition-all duration-200 hover:scale-105 bg-[var(--dashboard-bg-secondary)] border-[var(--dashboard-border-subtle)]">
+                  <p className="text-sm mb-2 text-[var(--dashboard-text-muted)]">Total Value</p>
+                  <p className="text-3xl font-bold text-[var(--dashboard-text-primary)]">$0.00</p>
                 </div>
-                <div className={`p-5 rounded-xl border transition-all duration-200 hover:scale-105 ${isDark
-                  ? 'bg-[rgba(255,255,255,0.02)] border-[rgba(255,255,255,0.08)]'
-                  : 'bg-gradient-to-br from-blue-50 to-blue-100 border-blue-200'
-                  }`}>
-                  <p className={`text-sm mb-2 ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>Assets</p>
-                  <p className={`text-3xl font-bold ${isDark ? 'text-white' : 'text-gray-900'}`}>0</p>
+                <div className="p-5 rounded-xl border transition-all duration-200 hover:scale-105 bg-[var(--dashboard-bg-secondary)] border-[var(--dashboard-border-subtle)]">
+                  <p className="text-sm mb-2 text-[var(--dashboard-text-muted)]">Assets</p>
+                  <p className="text-3xl font-bold text-[var(--dashboard-text-primary)]">0</p>
                 </div>
-                <div className={`p-5 rounded-xl border transition-all duration-200 hover:scale-105 ${isDark
-                  ? 'bg-[rgba(255,255,255,0.02)] border-[rgba(255,255,255,0.08)]'
-                  : 'bg-gradient-to-br from-green-50 to-green-100 border-green-200'
-                  }`}>
-                  <p className={`text-sm mb-2 ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>24h Profit</p>
+                <div className="p-5 rounded-xl border transition-all duration-200 hover:scale-105 bg-[var(--dashboard-bg-secondary)] border-[var(--dashboard-border-subtle)]">
+                  <p className="text-sm mb-2 text-[var(--dashboard-text-muted)]">24h Profit</p>
                   <p className="text-3xl font-bold text-green-400">+0.00%</p>
                 </div>
-                <div className={`p-5 rounded-xl border transition-all duration-200 hover:scale-105 ${isDark
-                  ? 'bg-[rgba(255,255,255,0.02)] border-[rgba(255,255,255,0.08)]'
-                  : 'bg-gradient-to-br from-amber-50 to-amber-100 border-amber-200'
-                  }`}>
-                  <p className={`text-sm mb-2 ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>Watchlist</p>
-                  <p className={`text-3xl font-bold ${isDark ? 'text-white' : 'text-gray-900'}`}>0</p>
+                <div className="p-5 rounded-xl border transition-all duration-200 hover:scale-105 bg-[var(--dashboard-bg-secondary)] border-[var(--dashboard-border-subtle)]">
+                  <p className="text-sm mb-2 text-[var(--dashboard-text-muted)]">Watchlist</p>
+                  <p className="text-3xl font-bold text-[var(--dashboard-text-primary)]">0</p>
                 </div>
               </div>
             </div>
 
-            <div className={`xl:col-span-1 rounded-2xl p-8 border transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 ${isDark
-              ? 'bg-[#14141f] border-[rgba(255,255,255,0.08)] shadow-[0_8px_32px_0_rgba(0,0,0,0.3)]'
-              : 'bg-white border-gray-200 shadow-xl'
-              }`}>
+            <div className="xl:col-span-1 rounded-2xl p-8 border transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 bg-[var(--dashboard-bg-card)] border-[var(--dashboard-border-subtle)] shadow-[var(--dashboard-shadow-md)]">
               <div className="flex items-center gap-4 mb-6">
-                <div className="w-12 h-12 rounded-xl bg-[rgba(0,217,255,0.1)] border border-[rgba(0,217,255,0.2)] flex items-center justify-center shadow-lg">
-                  <svg className="w-6 h-6 text-[#00d9ff]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div className="w-12 h-12 rounded-xl bg-[var(--dashboard-accent-cyan-dim)] border border-[var(--dashboard-accent-cyan-hover)] flex items-center justify-center shadow-lg">
+                  <svg className="w-6 h-6 text-[var(--dashboard-accent-cyan)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                   </svg>
                 </div>
-                <h2 className={`text-2xl font-bold ${isDark ? 'text-white' : 'text-gray-900'}`}>
+                <h2 className="text-2xl font-bold text-[var(--dashboard-text-primary)]">
                   Account
                 </h2>
               </div>
               <div className="space-y-4">
-                <div className={`pb-4 border-b ${isDark ? 'border-[rgba(255,255,255,0.06)]' : 'border-gray-200'}`}>
-                  <p className={`text-sm mb-1 ${isDark ? 'text-gray-500' : 'text-gray-600'}`}>Email</p>
-                  <p className={`font-semibold truncate ${isDark ? 'text-gray-300' : 'text-gray-900'}`}>
+                <div className="pb-4 border-b border-[var(--dashboard-border-medium)]">
+                  <p className="text-sm mb-1 text-[var(--dashboard-text-muted)]">Email</p>
+                  <p className="font-semibold truncate text-[var(--dashboard-text-secondary)]">
                     {currentUser?.email}
                   </p>
                 </div>
-                <div className={`pb-4 border-b ${isDark ? 'border-[rgba(255,255,255,0.06)]' : 'border-gray-200'}`}>
-                  <p className={`text-sm mb-1 ${isDark ? 'text-gray-500' : 'text-gray-600'}`}>Status</p>
+                <div className="pb-4 border-b border-[var(--dashboard-border-medium)]">
+                  <p className="text-sm mb-1 text-[var(--dashboard-text-muted)]">Status</p>
                   <span className="inline-flex items-center gap-2 text-green-400 bg-green-400/10 px-3 py-1.5 rounded-lg text-sm font-medium">
                     <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
                     Active
                   </span>
                 </div>
-                <div className={`pb-4 border-b ${isDark ? 'border-[rgba(255,255,255,0.06)]' : 'border-gray-200'}`}>
-                  <p className={`text-sm mb-1 ${isDark ? 'text-gray-500' : 'text-gray-600'}`}>Member Since</p>
-                  <p className={`font-semibold ${isDark ? 'text-gray-300' : 'text-gray-900'}`}>
+                <div className="pb-4 border-b border-[var(--dashboard-border-medium)]">
+                  <p className="text-sm mb-1 text-[var(--dashboard-text-muted)]">Member Since</p>
+                  <p className="font-semibold text-[var(--dashboard-text-secondary)]">
                     {currentUser?.metadata?.creationTime
                       ? new Date(currentUser.metadata.creationTime).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
                       : "N/A"}
@@ -326,10 +288,7 @@ const Dashboard = () => {
                 <div className="pt-2">
                   <button
                     onClick={() => navigate('/change-password')}
-                    className={`w-full flex items-center justify-center gap-2 px-4 py-3 rounded-xl transition-all duration-200 font-medium border ${isDark
-                      ? 'bg-[rgba(0,217,255,0.1)] hover:bg-[rgba(0,217,255,0.15)] text-[#00d9ff] border-[rgba(0,217,255,0.2)] hover:border-[rgba(0,217,255,0.3)]'
-                      : 'bg-purple-50 hover:bg-purple-100 text-purple-600 border-purple-200 hover:border-purple-300'
-                      }`}
+                    className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-xl transition-all duration-200 font-medium border bg-[var(--dashboard-accent-cyan-dim)] hover:bg-[var(--dashboard-accent-cyan-hover)] text-[var(--dashboard-accent-cyan)] border-[var(--dashboard-border-hover)] hover:border-[var(--dashboard-border-active)]"
                   >
                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z" />

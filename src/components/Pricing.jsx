@@ -94,7 +94,7 @@ export default function Pricing() {
   };
 
   return (
-    <div className={`min-h-screen ${isDark ? 'dark' : ''}`}>
+    <div className={`min-h-screen bg-[var(--bg-deep)] text-[var(--text-main)] ${isDark ? 'dark' : ''}`}>
       {/* FIXED: Progress Bar */}
       <motion.div
         className="fixed top-0 left-0 h-1 bg-gradient-to-r from-purple-500 via-pink-500 to-blue-500 z-50 origin-left"
@@ -106,7 +106,7 @@ export default function Pricing() {
 
       {/* Hero Header */}
       <motion.section
-        className="relative py-24 px-6 overflow-hidden"
+        className="relative py-24 px-6 overflow-hidden pricing-section"
         variants={containerVariants}
         initial="hidden"
         whileInView="visible"
@@ -154,7 +154,7 @@ export default function Pricing() {
             transition={{ type: "spring" }}
           >
             <div className="flex flex-col lg:flex-row justify-center items-center gap-6">
-              <span className={`text-lg font-semibold ${billingCycle === 'monthly' ? 'text-gray-900 dark:dark:text-yellow-400' : 'text-gray-500 dark:text-gray-400'}`}>
+              <span className={`text-lg font-semibold ${billingCycle === 'monthly' ? 'text-gray-900 dark:text-yellow-400' : 'text-gray-500 dark:text-gray-400'}`}>
                 Monthly
               </span>
 
@@ -166,13 +166,13 @@ export default function Pricing() {
               >
                 <motion.div
                   className="absolute top-2 w-10 h-10 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full shadow-lg flex items-center justify-center shadow-purple-500/50"
-                  animate={{ 
-                    x: billingCycle === 'yearly' ? 56 : 0 
+                  animate={{
+                    x: billingCycle === 'yearly' ? 56 : 0
                   }}
-                  transition={{ 
-                    type: "spring", 
-                    stiffness: 300, 
-                    damping: 25 
+                  transition={{
+                    type: "spring",
+                    stiffness: 300,
+                    damping: 25
                   }}
                 >
                   <FiZap className="text-white w-5 h-5" />
@@ -205,7 +205,7 @@ export default function Pricing() {
 
       {/* Pricing Cards */}
       <motion.section
-        className="py-20 px-8"
+        className="py-20 px-8 pricing-section"
         variants={containerVariants}
         initial="hidden"
         whileInView="visible"
@@ -230,7 +230,7 @@ export default function Pricing() {
                 onHoverEnd={() => setHoveredPlan(null)}
               >
                 {/* Card Background */}
-                <div className="h-full w-full bg-linear-to-br bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl rounded-[1.75rem] p-8 flex flex-col relative z-10 border border-white/30 dark:border-gray-700/50">
+                <div className="h-full w-full bg-linear-to-br bg-[var(--glass-card-bg)] dark:bg-[var(--dashboard-bg-card)] backdrop-blur-xl rounded-[1.75rem] p-8 flex flex-col relative z-10 border border-[var(--glass-border)] dark:border-gray-700/50">
 
                   {/* Popular Badge */}
                   {plan.highlight && (
@@ -283,10 +283,7 @@ export default function Pricing() {
 
                   {/* CTA Button */}
                   <motion.button
-                    className={`w-full py-6 px-8 rounded-2xl font-bold text-lg uppercase tracking-wider shadow-2xl transition-all duration-300 overflow-hidden relative ${plan.highlight
-                      ? 'bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-purple-500/40 hover:shadow-purple-500/60 hover:-translate-y-1'
-                      : 'bg-gray-700 dark:bg-gray-700 text-gray-900 dark:text-white border-2 border-gray-200/50 dark:border-gray-600/50 hover:bg-gray-800 dark:hover:bg-gray-900'
-                      }`}
+                    className="w-full py-6 px-8 rounded-2xl font-bold text-lg uppercase tracking-wider shadow-2xl overflow-hidden relative bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-purple-500/40 hover:shadow-purple-500/60"
                     onClick={() => handlePlanClick(plan.name)}
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.98 }}
@@ -301,15 +298,16 @@ export default function Pricing() {
             );
           })}
         </div>
-      </motion.section>
+      </motion.section >
 
       {/* FIXED: Working Comparison Table */}
-      <motion.section
-        className="py-20 px-6 bg-linear-to-b from-gray-50/50 to-transparent dark:from-gray-900/50"
+      < motion.section
+        className="py-20 px-6 bg-[var(--bg-stars)] rounded-3xl shadow-lg border border-[var(--border-color)]"
         variants={containerVariants}
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true }}
+        viewport={{ once: true }
+        }
       >
         <div className="max-w-7xl mx-auto">
           <motion.div className="text-center mb-20" variants={itemVariants}>
@@ -322,7 +320,7 @@ export default function Pricing() {
           </motion.div>
 
           <div className="overflow-x-auto">
-            <table className="w-full bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl rounded-3xl border border-white/30 dark:border-gray-700/50 shadow-2xl">
+            <table className="w-full bg-[var(--glass-panel-bg)] backdrop-blur-xl rounded-3xl border border-[var(--border-color)] shadow-2xl">
               <thead>
                 <tr className="border-b border-gray-200/50 dark:border-gray-700/50">
                   <th className="p-6 text-left font-bold text-lg">Feature</th>
@@ -375,11 +373,11 @@ export default function Pricing() {
             </table>
           </div>
         </div>
-      </motion.section>
+      </motion.section >
 
       {/* FIXED: Working FAQ Section */}
-      <motion.section
-        className="py-24 px-6"
+      < motion.section
+        className="py-24 px-6 pricing-section"
         variants={containerVariants}
         initial="hidden"
         whileInView="visible"
@@ -440,10 +438,10 @@ export default function Pricing() {
             ))}
           </div>
         </div>
-      </motion.section>
+      </motion.section >
 
       {/* FIXED: Payment Modal */}
-      <dialog id="payment-modal" className="backdrop:bg-black/80 p-8 w-full max-w-md mx-auto">
+      < dialog id="payment-modal" className="backdrop:bg-black/80 p-8 w-full max-w-md mx-auto" >
         <motion.form
           className="bg-white/95 dark:bg-gray-900/95 backdrop-blur-xl rounded-3xl p-12 shadow-2xl border border-white/50 dark:border-gray-700/50"
           initial={{ scale: 0.9, opacity: 0, y: 20 }}
@@ -476,7 +474,7 @@ export default function Pricing() {
             </button>
           </div>
         </motion.form>
-      </dialog>
+      </dialog >
 
       <style jsx>{`
         dialog[open] {
@@ -487,6 +485,6 @@ export default function Pricing() {
           to { opacity: 1; transform: scale(1) translateY(0); }
         }
       `}</style>
-    </div>
+    </div >
   );
 }

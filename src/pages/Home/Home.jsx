@@ -16,9 +16,9 @@ const Home = () => {
   const [minPrice, setMinPrice] = useState("");
   const [maxPrice, setMaxPrice] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  const coinPerPage =5;
+  const coinPerPage = 5;
   const totalPages = Math.ceil(displayCoin.length / coinPerPage);
-  const paginatedCoins = displayCoin.slice((currentPage - 1 ) *coinPerPage, currentPage* coinPerPage);
+  const paginatedCoins = displayCoin.slice((currentPage - 1) * coinPerPage, currentPage * coinPerPage);
 
   const inputHandler = (e) => {
     setInput(e.target.value);
@@ -68,7 +68,7 @@ const Home = () => {
           transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
         >
           <span>Bitcoin</span>
-          <span className="text-gradient-cyan" style={{ color: '#00f5ff' }}>+5.2%</span>
+          <span className="text-gradient-cyan">+5.2%</span>
         </motion.div>
 
         <motion.div
@@ -77,7 +77,7 @@ const Home = () => {
           transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
         >
           <span>Ethereum</span>
-          <span className="text-gradient-cyan" style={{ color: '#00f5ff' }}>+1.5%</span>
+          <span className="text-gradient-cyan">+1.5%</span>
         </motion.div>
 
         <motion.div
@@ -86,7 +86,7 @@ const Home = () => {
           transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
         >
           <span>Solana</span>
-          <span className="text-gradient-cyan" style={{ color: '#00f5ff' }}>+8.5%</span>
+          <span className="text-gradient-cyan">+8.5%</span>
         </motion.div>
 
         <motion.div
@@ -95,7 +95,7 @@ const Home = () => {
           transition={{ duration: 7, repeat: Infinity, ease: "easeInOut", delay: 1.5 }}
         >
           <span>Cardano</span>
-          <span style={{ color: '#ff4d6d' }}>-2.1%</span>
+          <span className="text-red-500 dark:text-[#ff4d6d]">-2.1%</span>
         </motion.div>
 
         <motion.div
@@ -104,7 +104,7 @@ const Home = () => {
           transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 2 }}
         >
           <span>BNB</span>
-          <span className="text-gradient-cyan" style={{ color: '#00f5ff' }}>+1.2%</span>
+          <span className="text-gradient-cyan">+1.2%</span>
         </motion.div>
 
         <div className="hero-content">
@@ -191,7 +191,7 @@ const Home = () => {
               /* VIRTUAL SCROLLER IMPLEMENTATION */
               <Virtuoso
                 useWindowScroll
-                data={paginatedCoins}  
+                data={paginatedCoins}
                 itemContent={(index, item) => (
                   <Link to={`/coin/${item.id}`} className="table-row" key={index}>
                     <div className="col-rank">{item.market_cap_rank}</div>
@@ -242,7 +242,7 @@ const Home = () => {
             </button>
           </div>
         </div>
-        
+
         {/* Load More Button removed because Virtual Scrolling handles infinite lists automatically */}
       </section>
 

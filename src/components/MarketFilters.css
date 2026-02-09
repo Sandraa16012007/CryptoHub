@@ -12,26 +12,28 @@
 
 .filter-label {
   font-size: 14px;
-  color: #aaa;
+  color: var(--text-muted);
 }
 
 .filter-btn {
   padding: 6px 14px;
   border-radius: 20px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  background: transparent;
-  color: #fff;
+  border: 1px solid var(--border-color);
+  background: var(--dashboard-bg-secondary);
+  color: var(--text-main);
   cursor: pointer;
-  transition: background 0.2s ease, border 0.2s ease;
+  transition: all 0.2s ease;
 }
 
 .filter-btn:hover {
-  background: rgba(255, 255, 255, 0.08);
+  background: var(--dashboard-accent-cyan-dim);
+  border-color: var(--neon-cyan);
 }
 
 .filter-btn.active {
-  background: #7927ff;
-  border-color: #7927ff;
+  background: var(--neon-purple);
+  border-color: var(--neon-purple);
+  color: #fff;
 }
 
 /* Toggle button hidden on desktop */
@@ -45,10 +47,11 @@
     display: flex;
     flex-direction: column;
     align-items: flex-end;
-}
+  }
+
   .filter-toggle {
     display: block;
-    background: #111;
+    background: var(--dashboard-bg-secondary);
     color: #fff;
     border: none;
     padding: 10px 14px;
@@ -61,9 +64,10 @@
     align-items: flex-start;
     gap: 8px;
     margin-top: 10px;
-    background: #111;
+    background: var(--dashboard-bg-secondary);
     padding: 10px;
     border-radius: 8px;
+    border: 1px solid var(--border-color);
 
     /* Animation setup */
     opacity: 0;
@@ -81,7 +85,8 @@
   .market-filters.open {
     opacity: 1;
     transform: translateY(0);
-    max-height: 300px; /* safe height */
+    max-height: 300px;
+    /* safe height */
     pointer-events: auto;
   }
 

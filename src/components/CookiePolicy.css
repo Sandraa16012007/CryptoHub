@@ -1,23 +1,23 @@
-/* CookiePolicy.css - Scoped & Simple */
 .cookie-container {
   min-height: 100vh;
-  background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 100%);
+  background: var(--bg-stars);
   padding: 2rem;
-  color: #e5e5e5;
+  color: var(--text-main);
   font-family: system-ui, -apple-system, sans-serif;
 }
 
 .cookie-container h1 {
   font-size: 2.5rem;
-  background: linear-gradient(135deg, #fff, #ccc);
+  background: var(--gradient-primary);
   -webkit-background-clip: text;
   background-clip: text;
+  -webkit-text-fill-color: transparent;
   text-align: center;
-  margin-bottom: 1rem;
-  font-weight: 700;
+  margin-bottom: 1.5rem;
+  font-weight: 800;
 }
 
-.cookie-container > p {
+.cookie-container>p {
   text-align: center;
   color: #aaa;
   margin-bottom: 2.5rem;
@@ -27,25 +27,31 @@
 section {
   max-width: 800px;
   margin: 0 auto 2.5rem;
+  background: var(--bg-card);
+  padding: 2.5rem;
+  border-radius: 20px;
+  border: 1px solid var(--border-color);
+  box-shadow: var(--dashboard-shadow-sm);
+}
+
+.dark section {
   background: rgba(15, 15, 35, 0.7);
-  padding: 2rem;
-  border-radius: 16px;
-  border: 1px solid rgba(255,255,255,0.1);
+  border-color: rgba(255, 255, 255, 0.1);
 }
 
 section h2 {
   font-size: 1.6rem;
-  color: #fff;
+  color: var(--text-main);
   margin-bottom: 1.2rem;
   padding-left: 1rem;
-  border-left: 3px solid #4ade80;
+  border-left: 4px solid #4ade80;
 }
 
 p {
   line-height: 1.7;
   font-size: 1.05rem;
   margin-bottom: 1rem;
-  color: #d0d0d0;
+  color: var(--text-muted);
 }
 
 ul {
@@ -57,14 +63,14 @@ ul li {
   position: relative;
   margin-bottom: 0.8rem;
   font-size: 1.05rem;
-  color: #d0d0d0;
+  color: var(--text-muted);
 }
 
 
 
 strong {
-  color: #fff;
-  font-weight: 600;
+  color: var(--text-main);
+  font-weight: 700;
 }
 
 a {
@@ -80,20 +86,20 @@ a:hover {
 }
 
 @media (max-width: 768px) {
-  .cookie-container { 
-    padding: 1rem; 
+  .cookie-container {
+    padding: 1rem;
   }
-  
-  section { 
-    padding: 1.5rem; 
-    margin-bottom: 2rem; 
+
+  section {
+    padding: 1.5rem;
+    margin-bottom: 2rem;
   }
-  
-  .cookie-container h1 { 
-    font-size: 2rem; 
+
+  .cookie-container h1 {
+    font-size: 2rem;
   }
-  
-  section h2 { 
-    font-size: 1.4rem; 
+
+  section h2 {
+    font-size: 1.4rem;
   }
 }

@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import "./contributors.css"; 
+import "./contributors.css";
 
 const OWNER = "KaranUnique";
 const REPO = "CryptoHub";
@@ -15,7 +15,7 @@ const PROJECT_ADMIN = {
   repo: "CryptoHub",
   repoUrl: `https://github.com/${OWNER}/${REPO}`,
   githubUrl: `https://github.com/${OWNER}`,
-  avatarUrl: `https://avatars.githubusercontent.com/${OWNER}?v=4&s=200`, 
+  avatarUrl: `https://avatars.githubusercontent.com/${OWNER}?v=4&s=200`,
   description: "Project Creator & Lead Maintainer"
 };
 
@@ -390,13 +390,13 @@ const Contributors = () => {
           </div>
 
           <div className="project-admin-actions">
-            <button 
+            <button
               className="btn btn-primary project-admin-btn"
               onClick={() => handleOpenGitHubProfile(PROJECT_ADMIN.githubUrl)}
             >
               View GitHub Profile →
             </button>
-            <button 
+            <button
               className="btn btn-outline project-admin-btn"
               onClick={handleOpenRepo}
             >
@@ -417,7 +417,7 @@ const Contributors = () => {
         {error && (
           <div className="error-container">
             <p className="contributors-error">{error}</p>
-            <p style={{fontSize: '0.85rem', color: '#9ca3af'}}>
+            <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>
               Stats will show "No contributors found" - normal if repo has no merged PRs yet.
             </p>
           </div>
@@ -426,9 +426,9 @@ const Contributors = () => {
         {!loading && !error && filteredContributors.length === 0 && (
           <div className="empty-state">
             <p className="contributors-empty">No contributors found.</p>
-            <p style={{fontSize: '0.9rem', color: '#9ca3af'}}>
-              No merged pull requests in KaranUnique/CryptoHub yet. 
-              <br/>Stats show 0 contributors, 0 PRs, 0 points ✅
+            <p style={{ fontSize: '0.9rem', color: 'var(--text-muted)' }}>
+              No merged pull requests in KaranUnique/CryptoHub yet.
+              <br />Stats show 0 contributors, 0 PRs, 0 points ✅
             </p>
           </div>
         )}

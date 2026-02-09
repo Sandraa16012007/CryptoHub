@@ -1,4 +1,4 @@
-import React, { useEffect, useContext,useRef } from "react";
+import React, { useEffect, useContext, useRef } from "react";
 import Lenis from "@studio-freight/lenis";
 import Navbar from "@/components/Navbar";
 import { Routes, Route, useLocation } from "react-router-dom";
@@ -30,14 +30,14 @@ import ScrollToTop from "@/components/ScrollToTop";
 import PrivacyPolicy from "@/components/PrivacyPolicy.jsx";
 import TermsOfService from "@/components/TermsOfService.jsx";
 import CookiePolicy from "@/components/CookiePolicy.jsx";
-import "./App.css";
 import ContactUs from "./components/ContactUs";
 import FAQ from "./components/FAQ";
 import PageNotFound from "./components/PageNotFound";
+import "./App.css";
 
 const App = () => {
+  const lenisRef = useRef(null);
 
-  const lenisRef = useRef(null)
   useEffect(() => {
     const lenis = new Lenis({
       smoothWheel: true,
@@ -63,11 +63,12 @@ const App = () => {
 
   const { isLoading } = useContext(CoinContext);
   const location = useLocation();
+
   const isDashboard =
     location.pathname === "/dashboard" ||
     location.pathname === "/leaderboard" ||
     location.pathname === "/market-overview" ||
-    location.pathname === "/change-password" ;
+    location.pathname === "/change-password";
 
   const authRoutes = ["/login", "/signup", "/forgot-password"];
   const isAuthPage = authRoutes.includes(location.pathname);
@@ -80,58 +81,59 @@ const App = () => {
   }, []);
 
   return (
-    <>
-      <Toaster
-        position="top-center"
-        toastOptions={{
-          style: {
-            background: "rgba(15, 15, 25, 0.9)",
-            color: "#fff",
-            backdropFilter: "blur(12px)",
-            border: "1px solid rgba(139, 92, 246, 0.3)",
-            borderRadius: "12px",
-          },
-          success: {
-            iconTheme: {
-              primary: "#22c55e",
-              secondary: "#0f0f19",
-            },
-          },
-          error: {
-            iconTheme: {
-              primary: "#ef4444",
-              secondary: "#0f0f19",
-            },
-          },
-        }}
-      />
-      <ThemeProvider>
-        <AuthProvider>
+    <ThemeProvider>
+      <AuthProvider>
+        <>
+          <Toaster
+            position="top-center"
+            toastOptions={{
+              className: "theme-toaster",
+              style: {
+                background: "var(--glass-panel-bg)",
+                color: "var(--text-main)",
+                backdropFilter: "blur(12px)",
+                border: "1px solid var(--border-color)",
+                borderRadius: "12px",
+              },
+              success: {
+                iconTheme: {
+                  primary: "#22c55e",
+                  secondary: "var(--bg-deep)",
+                },
+              },
+              error: {
+                iconTheme: {
+                  primary: "#ef4444",
+                  secondary: "var(--bg-deep)",
+                },
+              },
+            }}
+          />
+
           <div className="app">
-            {/* Loading Spinner - will show when isLoading is true */}
             {isLoading && !isDashboard && <LoadingSpinner />}
 
             <div
               className={
-                isDashboard ? "app-dashboard-container" : "app-container"
+                isDashboard
+                  ? "app-dashboard-container"
+                  : "app-container"
               }
             >
               {!isDashboard && <Navbar />}
+
               <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/pricing" element={<Pricing />} />
                 <Route path="/blog" element={<Blog />} />
-                {/* Blog detail route supporting both slug and id patterns */}
                 <Route path="/blog/:slug" element={<BlogDetail />} />
                 <Route path="/blog/article/:id" element={<BlogDetail />} />
-
                 <Route path="/features" element={<Features />} />
                 <Route path="/signup" element={<Signup />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/forgot-password" element={<ForgotPassword />} />
                 <Route path="/contributors" element={<Contributors />} />
 
-                {/* Dashboard Layout with nested routes - all share the same sidebar */}
                 <Route
                   element={
                     <PrivateRoute>
@@ -145,31 +147,23 @@ const App = () => {
                   <Route path="/change-password" element={<ChangePassword />} />
                 </Route>
 
-                {/* Coin route - accessible to all but shows sidebar if logged in */}
                 <Route path="/coin/:coinId" element={<CoinWrapper />} />
-
-                {/* Add 404 Route if you implemented it earlier */}
-                {/* <Route path="*" element={<NotFound />} /> */}
-
                 <Route path="/privacy" element={<PrivacyPolicy />} />
                 <Route path="/terms" element={<TermsOfService />} />
                 <Route path="/contactus" element={<ContactUs />} />
                 <Route path="/faq" element={<FAQ />} />
-
-                {/* Page Not Found */}
-                <Route path="*" element={<PageNotFound />} />
-
-
-
                 <Route path="/cookies" element={<CookiePolicy />} />
+                <Route path="*" element={<PageNotFound />} />
               </Routes>
             </div>
-           {!isDashboard && !isAuthPage && <Footer />}
+
+            {!isDashboard && !isAuthPage && <Footer />}
           </div>
-          <ScrollToTop  lenis={lenisRef.current} />
-        </AuthProvider>
-      </ThemeProvider>
-    </>
+
+          <ScrollToTop lenis={lenisRef.current} />
+        </>
+      </AuthProvider>
+    </ThemeProvider>
   );
 };
 

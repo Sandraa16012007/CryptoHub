@@ -14,14 +14,22 @@ export const useTheme = () => {
 export const ThemeProvider = ({ children }) => {
   const [theme, setTheme] = useState(() => {
     const savedTheme = localStorage.getItem("cryptohub-theme");
-    return savedTheme || "dark";
+    if (savedTheme) return savedTheme;
+    // Fallback to system preference
+    if (window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches) {
+      return "light";
+    }
+    return "dark";
   });
 
   useEffect(() => {
-    requestAnimationFrame(() => {
-      localStorage.setItem("cryptohub-theme", theme);
-      document.documentElement.classList.toggle("dark", theme === "dark");
-    });
+    localStorage.setItem("cryptohub-theme", theme);
+    document.documentElement.setAttribute("data-theme", theme);
+    if (theme === "dark") {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
   }, [theme]);
 
   const toggleTheme = useCallback(() => {

@@ -69,20 +69,14 @@ const MarketOverview = () => {
             />
           </svg>
         </h1>
-        <p className={`text-lg ${isDark ? "text-gray-400" : "text-gray-600"}`}>
+        <p className="text-lg text-[var(--dashboard-text-secondary)]">
           Real-time cryptocurrency market insights
         </p>
       </div>
 
       <div className="grid grid-cols-1 xl:grid-cols-2 gap-6 mb-6 w-full">
         {/* Top Gainers */}
-        <div
-          className={`rounded-2xl p-8 border transition-all duration-300 hover:shadow-2xl w-full ${
-            isDark
-              ? "bg-[#14141f] border-[rgba(255,255,255,0.08)] shadow-[0_8px_32px_0_rgba(0,0,0,0.3)]"
-              : "bg-white border-gray-200 shadow-xl"
-          }`}
-        >
+        <div className="rounded-2xl p-8 border transition-all duration-300 hover:shadow-2xl w-full bg-[var(--dashboard-bg-card)] border-[var(--dashboard-border-subtle)] shadow-[var(--dashboard-shadow-md)]">
           <div className="flex items-center gap-4 mb-6">
             <div className="w-12 h-12 rounded-xl bg-[rgba(74,222,128,0.1)] border border-[rgba(74,222,128,0.2)] flex items-center justify-center shadow-lg">
               <svg
@@ -99,9 +93,7 @@ const MarketOverview = () => {
                 />
               </svg>
             </div>
-            <h2
-              className={`text-2xl font-bold ${isDark ? "text-white" : "text-gray-900"}`}
-            >
+            <h2 className="text-2xl font-bold text-[var(--dashboard-text-primary)]">
               Top Gainers 24h
             </h2>
           </div>
@@ -110,28 +102,18 @@ const MarketOverview = () => {
               <div
                 key={coin.id}
                 onClick={() => navigate(`/coin/${coin.id}`)}
-                className={`flex items-center justify-between p-4 rounded-xl cursor-pointer transition-all duration-200 hover:scale-105 ${
-                  isDark
-                    ? "bg-[rgba(255,255,255,0.03)] hover:bg-[rgba(255,255,255,0.05)]"
-                    : "bg-gray-50 hover:bg-gray-100"
-                }`}
+                className="flex items-center justify-between p-4 rounded-xl cursor-pointer transition-all duration-200 hover:scale-105 bg-[var(--dashboard-bg-secondary)] hover:bg-[var(--dashboard-border-subtle)]"
               >
                 <div className="flex items-center gap-3">
-                  <span
-                    className={`font-bold ${isDark ? "text-gray-400" : "text-gray-600"}`}
-                  >
+                  <span className="font-bold text-[var(--dashboard-text-muted)]">
                     #{index + 1}
                   </span>
                   <img src={coin.image} alt={coin.name} className="w-8 h-8" />
                   <div>
-                    <p
-                      className={`font-semibold ${isDark ? "text-white" : "text-gray-900"}`}
-                    >
+                    <p className="font-semibold text-[var(--dashboard-text-primary)]">
                       {coin.name}
                     </p>
-                    <p
-                      className={`text-sm ${isDark ? "text-gray-400" : "text-gray-600"}`}
-                    >
+                    <p className="text-sm text-[var(--dashboard-text-muted)]">
                       {formatPrice(coin.current_price)}
                     </p>
                   </div>
@@ -145,13 +127,7 @@ const MarketOverview = () => {
         </div>
 
         {/* Top Losers */}
-        <div
-          className={`rounded-2xl p-8 border transition-all duration-300 hover:shadow-2xl w-full ${
-            isDark
-              ? "bg-[#14141f] border-[rgba(255,255,255,0.08)] shadow-[0_8px_32px_0_rgba(0,0,0,0.3)]"
-              : "bg-white border-gray-200 shadow-xl"
-          }`}
-        >
+        <div className="rounded-2xl p-8 border transition-all duration-300 hover:shadow-2xl w-full bg-[var(--dashboard-bg-card)] border-[var(--dashboard-border-subtle)] shadow-[var(--dashboard-shadow-md)]">
           <div className="flex items-center gap-4 mb-6">
             <div className="w-12 h-12 rounded-xl bg-[rgba(239,68,68,0.1)] border border-[rgba(239,68,68,0.2)] flex items-center justify-center shadow-lg">
               <svg
@@ -168,9 +144,7 @@ const MarketOverview = () => {
                 />
               </svg>
             </div>
-            <h2
-              className={`text-2xl font-bold ${isDark ? "text-white" : "text-gray-900"}`}
-            >
+            <h2 className="text-2xl font-bold text-[var(--dashboard-text-primary)]">
               Top Losers 24h
             </h2>
           </div>
@@ -179,28 +153,18 @@ const MarketOverview = () => {
               <div
                 key={coin.id}
                 onClick={() => navigate(`/coin/${coin.id}`)}
-                className={`flex items-center justify-between p-4 rounded-xl cursor-pointer transition-all duration-200 hover:scale-105 ${
-                  isDark
-                    ? "bg-[rgba(255,255,255,0.03)] hover:bg-[rgba(255,255,255,0.05)]"
-                    : "bg-gray-50 hover:bg-gray-100"
-                }`}
+                className="flex items-center justify-between p-4 rounded-xl cursor-pointer transition-all duration-200 hover:scale-105 bg-[var(--dashboard-bg-secondary)] hover:bg-[var(--dashboard-border-subtle)]"
               >
                 <div className="flex items-center gap-3">
-                  <span
-                    className={`font-bold ${isDark ? "text-gray-400" : "text-gray-600"}`}
-                  >
+                  <span className="font-bold text-[var(--dashboard-text-muted)]">
                     #{index + 1}
                   </span>
                   <img src={coin.image} alt={coin.name} className="w-8 h-8" />
                   <div>
-                    <p
-                      className={`font-semibold ${isDark ? "text-white" : "text-gray-900"}`}
-                    >
+                    <p className="font-semibold text-[var(--dashboard-text-primary)]">
                       {coin.name}
                     </p>
-                    <p
-                      className={`text-sm ${isDark ? "text-gray-400" : "text-gray-600"}`}
-                    >
+                    <p className="text-sm text-[var(--dashboard-text-muted)]">
                       {formatPrice(coin.current_price)}
                     </p>
                   </div>
@@ -215,13 +179,7 @@ const MarketOverview = () => {
       </div>
 
       {/* Trending Cryptocurrencies */}
-      <div
-        className={`rounded-2xl p-8 border transition-all duration-300 hover:shadow-2xl w-full ${
-          isDark
-            ? "bg-[#14141f] border-[rgba(255,255,255,0.08)] shadow-[0_8px_32px_0_rgba(0,0,0,0.3)]"
-            : "bg-white border-gray-200 shadow-xl"
-        }`}
-      >
+      <div className="rounded-2xl p-8 border transition-all duration-300 hover:shadow-2xl w-full bg-[var(--dashboard-bg-card)] border-[var(--dashboard-border-subtle)] shadow-[var(--dashboard-shadow-md)]">
         <div className="flex items-center gap-4 mb-6">
           <div className="w-12 h-12 rounded-xl bg-[rgba(0,217,255,0.1)] border border-[rgba(0,217,255,0.2)] flex items-center justify-center shadow-lg">
             <svg
@@ -238,9 +196,7 @@ const MarketOverview = () => {
               />
             </svg>
           </div>
-          <h2
-            className={`text-2xl font-bold ${isDark ? "text-white" : "text-gray-900"}`}
-          >
+          <h2 className="text-2xl font-bold text-[var(--dashboard-text-primary)]">
             Top 10 by Market Cap
           </h2>
         </div>
@@ -249,23 +205,15 @@ const MarketOverview = () => {
             <div
               key={coin.id}
               onClick={() => navigate(`/coin/${coin.id}`)}
-              className={`p-4 rounded-xl cursor-pointer transition-all duration-200 hover:scale-105 ${
-                isDark
-                  ? "bg-[rgba(255,255,255,0.02)] hover:bg-[rgba(255,255,255,0.03)]"
-                  : "bg-gray-50 hover:bg-gray-100"
-              }`}
+              className="p-4 rounded-xl cursor-pointer transition-all duration-200 hover:scale-105 bg-[var(--dashboard-bg-secondary)] hover:bg-[var(--dashboard-border-subtle)]"
             >
               <div className="flex items-center gap-3 mb-3">
                 <img src={coin.image} alt={coin.name} className="w-10 h-10" />
                 <div className="flex-1">
-                  <p
-                    className={`font-bold ${isDark ? "text-white" : "text-gray-900"}`}
-                  >
+                  <p className="font-bold text-[var(--dashboard-text-primary)]">
                     {coin.name}
                   </p>
-                  <p
-                    className={`text-sm ${isDark ? "text-gray-400" : "text-gray-600"}`}
-                  >
+                  <p className="text-sm text-[var(--dashboard-text-muted)]">
                     {coin.symbol.toUpperCase()}
                   </p>
                 </div>
@@ -280,14 +228,10 @@ const MarketOverview = () => {
                 </span>
               </div>
               <div className="space-y-1">
-                <p
-                  className={`text-lg font-bold ${isDark ? "text-white" : "text-gray-900"}`}
-                >
+                <p className="text-lg font-bold text-[var(--dashboard-text-primary)]">
                   {formatPrice(coin.current_price)}
                 </p>
-                <p
-                  className={`text-sm ${isDark ? "text-gray-400" : "text-gray-600"}`}
-                >
+                <p className="text-sm text-[var(--dashboard-text-muted)]">
                   MCap: {currency.symbol}
                   {(coin.market_cap / 1e9).toFixed(2)}B
                 </p>

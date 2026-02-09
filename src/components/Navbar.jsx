@@ -1,13 +1,12 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { useAuth } from "../context/AuthContext";
-import { useTheme } from "../context/ThemeContext";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { FiLock, FiUser, FiLogOut, FiMail } from "react-icons/fi";
+import ThemeToggle from "./ThemeToggle";
 import "./Navbar.css";
 
 function Navbar() {
   const { currentUser, logout, isEmailProvider } = useAuth();
-  const { theme } = useTheme();
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -15,78 +14,51 @@ function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [openDropdown, setOpenDropdown] = useState(null);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
- 
 
   const isDashboardPage = location.pathname === "/dashboard";
 
-  /* -------------------- Handlers -------------------- */
+  /* Scroll Effect */
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 20);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
-  const handleDropdownEnter = (label) => {
-    setOpenDropdown(label);
-  };
-
-  const handleDropdownLeave = () => {
-    setOpenDropdown(null);
+  /* Close dropdown on outside click */
+  useEffect(() => {
+    const handleClick = (e) => {
+      if (!e.target.closest(".dropdown-container")) {
+        setOpenDropdown(null);
+      }
+      if (!e.target.closest(".profile-menu-container")) {
+        setIsProfileOpen(false);
+      }
     };
 
-  const handleDropdownClick = (label) => {
-    setOpenDropdown(openDropdown === label ? null : label);
-  };
+    document.addEventListener("click", handleClick);
+    return () => document.removeEventListener("click", handleClick);
+  }, []);
 
-  const toggleMobileMenu = () => {
+  const toggleMobileMenu = () =>
     setIsMobileMenuOpen((prev) => !prev);
-  };
 
   const closeMobileMenu = () => {
     setIsMobileMenuOpen(false);
     setOpenDropdown(null);
   };
 
+  const handleDropdownClick = (label) => {
+    setOpenDropdown(openDropdown === label ? null : label);
+  };
+
   const handleLogout = useCallback(async () => {
     try {
       await logout();
       navigate("/");
-      closeMobileMenu();
-    } catch (error) {
-      console.error("Logout failed:", error);
+    } catch (err) {
+      console.error(err);
     }
   }, [logout, navigate]);
-
-  /* -------------------- Effects -------------------- */
-
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 20);
-    window.addEventListener("scroll", onScroll);
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
-  useEffect(() => {
-    const handleClickOutside = (e) => {
-      if (openDropdown && !e.target.closest(".dropdown-container")) {
-        setOpenDropdown(null);
-      }
-      if (isProfileOpen && !event.target.closest('.profile-menu-container')) {
-        setIsProfileOpen(false);
-      }
-    };
-
-    const handleEscapeKey = (event) => {
-      if (event.key === 'Escape') {
-        if (openDropdown) setOpenDropdown(null);
-        if (isProfileOpen) setIsProfileOpen(false);
-      }
-    };
-
-    document.addEventListener("click", handleClickOutside);
-    document.addEventListener("keydown", handleEscape);
-
-    return () => {
-      document.removeEventListener("click", handleClickOutside);
-      document.removeEventListener("keydown", handleEscape);
-    };
-  }, [openDropdown, isProfileOpen]);
-
-  /* -------------------- Nav Links -------------------- */
 
   const navLinks = [
     { to: "/", label: "Home" },
@@ -103,214 +75,44 @@ function Navbar() {
     },
   ];
 
-  const authenticatedNavLinks = [
-    ...navLinks,
-    { to: "/dashboard", label: "Dashboard" },
-    { to: "/leaderboard", label: "Leaderboard" },
-  ];
-
-  const linksToRender = currentUser ? authenticatedNavLinks : navLinks;
-
-  /* -------------------- JSX -------------------- */
+  const linksToRender = currentUser
+    ? [...navLinks, { to: "/dashboard", label: "Dashboard" }]
+    : navLinks;
 
   return (
-    <nav
-      className={`navbar ${scrolled ? "scrolled" : ""} ${
-        isMobileMenuOpen ? "has-mobile-menu" : ""
-      } ${isDashboardPage ? "is-dashboard" : ""}`}
-    >
-      <div className="navbar-content">
-        {/* Logo */}
+    <nav className={`navbar ${scrolled ? "scrolled" : ""}`}>
+      <div className="navbar-container">
+        {/* LEFT - LOGO */}
         <Link to="/" className="navbar-logo">
-          <img src="/crypto-logo.png" alt="CryptoHub" className="logo-img" />
-          <span className="logo-text">CryptoHub</span>
+          <img src="/crypto-logo.png" alt="CryptoHub" />
+          <span>CryptoHub</span>
         </Link>
 
-        {/* Desktop Menu */}
+        {/* CENTER - LINKS */}
         {!isDashboardPage && (
-    <ul className="navbar-menu">
-      {(currentUser ? authenticatedNavLinks : navLinks).map((link) => (
-        <li
-          key={link.label}
-          className="navbar-item"
-          onMouseEnter={() => link.dropdown && handleDropdownEnter(link.label)}
-          onMouseLeave={handleDropdownLeave}
-        >
-          {link.dropdown ? (
-            <>
-              <span 
-                className="navbar-link dropdown-trigger"
-                onClick={() => handleDropdownClick(link.label)}
-                role="button"
-                aria-expanded={openDropdown === link.label}
-                aria-haspopup="true"
-                tabIndex={0}
-                onKeyDown={(e) => {
-                  if (e.key === 'Enter' || e.key === ' ') {
-                    e.preventDefault();
-                    handleDropdownClick(link.label);
-                  }
-                }}
+          <ul className="navbar-menu">
+            {linksToRender.map((link) => (
+              <li
+                key={link.label}
+                className="navbar-item dropdown-container"
               >
-                {link.label}
-              </span>
-
-              <ul 
-                className={`dropdown-menu ${openDropdown === link.label ? 'show' : ''}`}
-                role="menu"
-                aria-label={`${link.label} submenu`}
-              >
-                {!link.dropdown ? (
-                  <Link
-                    to={link.to}
-                    className={`navbar-link ${
-                      location.pathname === link.to ? "active" : ""
-                    }`}
-                    onClick={closeMobileMenu}
-                  >
-                    {link.label}
-                  </Link>
-                ) : (
-                  <>
-                    <span
-                      className="navbar-link dropdown-trigger"
-                      role="button"
-                      tabIndex={0}
-                      aria-haspopup="true"
-                      aria-expanded={openDropdown === link.label}
-                      onClick={() => handleDropdownClick(link.label)}
-                      onKeyDown={(e) => {
-                        if (e.key === "Enter" || e.key === " ") {
-                          e.preventDefault();
-                          handleDropdownClick(link.label);
-                        }
-                      }}
-                    >
-                      {link.label}
-                    </span>
-
-                    <ul
-                      className={`dropdown-menu ${
-                        openDropdown === link.label ? "show" : ""
-                      }`}
-                      role="menu"
-                    >
-                      {link.dropdown.map((item) => (
-                        <li key={item.to} role="none">
-                          <Link
-                            to={item.to}
-                            className="dropdown-link"
-                            role="menuitem"
-                            onClick={closeMobileMenu}
-                          >
-                            {item.label}
-                          </Link>
-                        </li>
-                      ))}
-                    </ul>
-                  </>
-                )}
-              </li>
-            ))}
-          </ul>
-        )}
-
-        {/* Right Actions */}
-        <div className="navbar-actions">
-          <div className="desktop-auth">
-            {currentUser ? (
-              <div className="profile-menu-container">
-                <button 
-                  className="profile-icon-btn"
-                  onClick={() => setIsProfileOpen(!isProfileOpen)}
-                  aria-label="User profile menu"
-                  aria-expanded={isProfileOpen}
-                >
-                  <FiUser />
-                </button>
-                
-                <div className={`profile-dropdown ${isProfileOpen ? 'show' : ''}`}>
-                  <div className="profile-dropdown-header">
-                    <FiMail className="profile-icon" />
-                    <span className="profile-email">{currentUser.email}</span>
-                  </div>
-                  
-                  <div className="profile-dropdown-divider"></div>
-                  
-                  <div className="profile-dropdown-items">
-                    {isEmailProvider() && (
-                      <Link
-                        to="/change-password"
-                        className="profile-dropdown-item"
-                        onClick={() => setIsProfileOpen(false)}
-                      >
-                        <FiLock />
-                        <span>Change Password</span>
-                      </Link>
-                    )}
-                    
-                    <button 
-                      onClick={() => {
-                        setIsProfileOpen(false);
-                        handleLogout();
-                      }} 
-                      className="profile-dropdown-item logout-item"
-                    >
-                      <FiLogOut />
-                      <span>Logout</span>
-                    </button>
-                  </div>
-                </div>
-              </div>
-            ) : (
-              <>
-                <Link to="/login" className="navbar-btn navbar-btn-login">
-                  LOGIN
-                </Link>
-                <Link to="/signup" className="navbar-btn navbar-btn-signup">
-                  Get Started
-                </Link>
-              </>
-            )}
-          </div>
-
-          {/* Mobile Toggle */}
-          <button
-            className={`navbar-toggle ${
-              isMobileMenuOpen ? "active" : ""
-            }`}
-            onClick={toggleMobileMenu}
-            aria-label="Toggle navigation"
-          >
-            <span />
-            <span />
-            <span />
-          </button>
-        </div>
-
-      </div>
-
-      {/* Mobile Menu Dropdown */}
-      {isMobileMenuOpen && !isDashboardPage && (
-        <div className="mobile-menu">
-          <ul className="mobile-menu-list">
-            {(currentUser ? authenticatedNavLinks : navLinks).map((link) => (
-              <li key={link.label} className="mobile-menu-item">
                 {link.dropdown ? (
                   <>
-                    <span 
-                      className="mobile-menu-link"
-                      onClick={() => handleDropdownClick(link.label)}
+                    <button
+                      className="navbar-link"
+                      onClick={() =>
+                        handleDropdownClick(link.label)
+                      }
                     >
                       {link.label}
-                    </span>
+                    </button>
+
                     {openDropdown === link.label && (
-                      <ul className="mobile-dropdown-menu">
+                      <ul className="dropdown-menu">
                         {link.dropdown.map((item) => (
                           <li key={item.to}>
                             <Link
                               to={item.to}
-                              className="mobile-dropdown-link"
                               onClick={closeMobileMenu}
                             >
                               {item.label}
@@ -323,10 +125,11 @@ function Navbar() {
                 ) : (
                   <Link
                     to={link.to}
-                    className={`mobile-menu-link ${
-                      location.pathname === link.to ? "active" : ""
+                    className={`navbar-link ${
+                      location.pathname === link.to
+                        ? "active"
+                        : ""
                     }`}
-                    onClick={closeMobileMenu}
                   >
                     {link.label}
                   </Link>
@@ -334,28 +137,62 @@ function Navbar() {
               </li>
             ))}
           </ul>
+        )}
 
-          {/* Mobile Auth Buttons */}
-          {!currentUser && (
-            <div className="mobile-auth">
-              <Link
-                to="/login"
-                className="navbar-btn navbar-btn-login"
-                onClick={closeMobileMenu}
+        {/* RIGHT - ACTIONS */}
+        <div className="navbar-actions">
+          <ThemeToggle />
+
+          {currentUser ? (
+            <div className="profile-menu-container">
+              <button
+                className="profile-btn"
+                onClick={() =>
+                  setIsProfileOpen(!isProfileOpen)
+                }
               >
-                LOGIN
+                <FiUser />
+              </button>
+
+              {isProfileOpen && (
+                <div className="profile-dropdown">
+                  <div className="profile-email">
+                    <FiMail />
+                    {currentUser.email}
+                  </div>
+
+                  {isEmailProvider() && (
+                    <Link to="/change-password">
+                      <FiLock /> Change Password
+                    </Link>
+                  )}
+
+                  <button onClick={handleLogout}>
+                    <FiLogOut /> Logout
+                  </button>
+                </div>
+              )}
+            </div>
+          ) : (
+            <>
+              <Link to="/login" className="navbar-btn login">
+                Login
               </Link>
-              <Link
-                to="/signup"
-                className="navbar-btn navbar-btn-signup"
-                onClick={closeMobileMenu}
-              >
+              <Link to="/signup" className="navbar-btn signup">
                 Get Started
               </Link>
-            </div>
+            </>
           )}
+
+          {/* MOBILE TOGGLE */}
+          <button
+            className="navbar-toggle"
+            onClick={toggleMobileMenu}
+          >
+            ☰
+          </button>
         </div>
-      )}
+      </div>
     </nav>
   );
 }

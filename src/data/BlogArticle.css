@@ -62,10 +62,10 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(135deg, 
-    rgba(69, 89, 220, 0.1) 0%, 
-    rgba(34, 197, 94, 0.05) 50%, 
-    rgba(157, 78, 221, 0.05) 100%);
+  background: linear-gradient(135deg,
+      rgba(69, 89, 220, 0.1) 0%,
+      rgba(34, 197, 94, 0.05) 50%,
+      rgba(157, 78, 221, 0.05) 100%);
   z-index: -1;
 }
 
@@ -919,12 +919,12 @@
   .content-layout {
     grid-template-columns: 1fr;
   }
-  
+
   .article-sidebar {
     position: static;
     order: 2;
   }
-  
+
   .toc-card {
     display: none;
   }
@@ -938,38 +938,38 @@
     transform: none;
     flex-direction: row;
   }
-  
+
   .article-title {
     font-size: 32px;
   }
-  
+
   .article-excerpt {
     font-size: 18px;
     padding-left: 15px;
   }
-  
+
   .article-meta-grid {
     grid-template-columns: 1fr;
   }
-  
+
   .quick-stats {
     grid-template-columns: repeat(2, 1fr);
   }
-  
+
   .cta-content {
     flex-direction: column;
     text-align: center;
   }
-  
+
   .cta-form {
     flex-direction: column;
     width: 100%;
   }
-  
+
   .related-grid {
     grid-template-columns: 1fr;
   }
-  
+
   .takeaways-grid {
     grid-template-columns: 1fr;
   }
@@ -980,20 +980,128 @@
     flex-direction: column;
     align-items: flex-start;
   }
-  
+
   .article-title {
     font-size: 28px;
   }
-  
+
   .article-excerpt {
     font-size: 16px;
   }
-  
+
   .content-section h2 {
     font-size: 22px;
   }
-  
+
   .content-section p {
     font-size: 16px;
   }
+}
+
+/* ========== LIGHT THEME OVERRIDES ========== */
+[data-theme="light"] .blog-article-container {
+  background: var(--bg-deep);
+  color: var(--text-main);
+}
+
+[data-theme="light"] .article-title {
+  background: none;
+  -webkit-text-fill-color: initial;
+  color: #0f172a;
+}
+
+[data-theme="light"] .article-excerpt {
+  color: #475569;
+  border-left-color: #7c3aed;
+}
+
+[data-theme="light"] .meta-value,
+[data-theme="light"] .toc-title,
+[data-theme="light"] .data-source h4,
+[data-theme="light"] .author-info h4,
+[data-theme="light"] .content-section h2,
+[data-theme="light"] .highlight-box strong,
+[data-theme="light"] .card-header h3,
+[data-theme="light"] .viz-header,
+[data-theme="light"] .section-header h2,
+[data-theme="light"] .card-body h3,
+[data-theme="light"] .blog-article-not-found h1 {
+  color: #0f172a;
+}
+
+[data-theme="light"] .article-meta-grid,
+[data-theme="light"] .toc-card,
+[data-theme="light"] .stat,
+[data-theme="light"] .author-card-sidebar,
+[data-theme="light"] .metric-card,
+[data-theme="light"] .insight-list li,
+[data-theme="light"] .takeaway,
+[data-theme="light"] .insight-card,
+[data-theme="light"] .cta-content,
+[data-theme="light"] .viz-placeholder {
+  background: #ffffff;
+  border-color: #e2e8f0;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+[data-theme="light"] .content-section p,
+[data-theme="light"] .meta-label,
+[data-theme="light"] .stat-label,
+[data-theme="light"] .toc-link,
+[data-theme="light"] .author-info p,
+[data-theme="light"] .metric-label,
+[data-theme="light"] .viz-labels,
+[data-theme="light"] .takeaway p,
+[data-theme="light"] .card-body p,
+[data-theme="light"] .section-subtitle,
+[data-theme="light"] .date,
+[data-theme="light"] .read-time,
+[data-theme="light"] .blog-article-not-found p,
+[data-theme="light"] .cta-text p {
+  color: #475569;
+}
+
+[data-theme="light"] .highlight-box {
+  background: #f5f3ff;
+}
+
+[data-theme="light"] .highlight-box.success {
+  background: #f0fdf4;
+}
+
+[data-theme="light"] .data-viz {
+  background: #f8fafc;
+  border-color: #e2e8f0;
+}
+
+[data-theme="light"] .key-takeaways-card {
+  background: linear-gradient(135deg, #f5f3ff 0%, #f0fdf4 100%);
+  border-color: #e0e7ff;
+}
+
+[data-theme="light"] .related-insights {
+  background: #f8fafc;
+  border-color: #e2e8f0;
+}
+
+[data-theme="light"] .cta-form input {
+  background: #ffffff;
+  border-color: #d1d5db;
+  color: #0f172a;
+}
+
+[data-theme="light"] .back-btn {
+  border-color: #d1d5db;
+  color: #475569;
+}
+
+[data-theme="light"] .back-btn:hover {
+  background: #f1f5f9;
+  color: #0f172a;
+}
+
+[data-theme="light"] .toc-link:hover,
+[data-theme="light"] .toc-link.active {
+  background: #f5f3ff;
+  color: #7c3aed;
 }
