@@ -165,6 +165,7 @@ const App = () => {
       </AuthProvider>
     </ThemeProvider>
   );
+
 };
 
 export default App;
