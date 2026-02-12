@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { useAuth } from "../context/AuthContext";
 import { Link, useNavigate, useLocation } from "react-router-dom";
-import { FiLock, FiUser, FiLogOut, FiMail } from "react-icons/fi";
+import { FiLock, FiUser, FiLogOut, FiMail, FiBookmark } from "react-icons/fi";
 import ThemeToggle from "./ThemeToggle";
 import "./Navbar.css";
 
@@ -68,6 +68,7 @@ function Navbar() {
     {
       label: "More",
       dropdown: [
+        { to: "/about", label: "About" },
         { to: "/contributors", label: "Contributors" },
         { to: "/contactus", label: "Contact Us" },
         { to: "/faq", label: "FAQ" },
@@ -166,6 +167,10 @@ function Navbar() {
                       <FiLock /> Change Password
                     </Link>
                   )}
+
+                  <Link to="/saved-insights">
+                    <FiBookmark /> Saved Insights
+                  </Link>
 
                   <button onClick={handleLogout}>
                     <FiLogOut /> Logout

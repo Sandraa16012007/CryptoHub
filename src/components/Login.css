@@ -258,8 +258,9 @@
 
 .google-signin-btn:hover {
   background: var(--dashboard-bg-secondary);
-  border-color: var(--dashboard-border-hover);
+  border-color: var(--primary-color);
   transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(69, 89, 220, 0.35);
 }
 
 .google-icon {
@@ -277,7 +278,8 @@
 .auth-link {
   font-weight: 600;
   margin-left: 5px;
-  transition: all 0.2s;
+  color: var(--primary-color);
+  transition: all 0.2s ease;
 }
 
 .auth-link:hover {

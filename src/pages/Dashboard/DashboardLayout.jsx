@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
-import { useNavigate, useLocation, Outlet } from "react-router-dom";
+import { useNavigate, useLocation, Outlet, Link } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import { useTheme } from "../../context/ThemeContext";
 
@@ -55,6 +55,15 @@ const DashboardLayout = () => {
             label: "Leaderboard",
             path: "/leaderboard"
         },
+        {
+            icon: (
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
+                </svg>
+            ),
+            label: "Saved Insights",
+            path: "/saved-insights"
+        },
     ];
 
     return (
@@ -69,16 +78,16 @@ const DashboardLayout = () => {
                 <div className="flex flex-col h-full p-5">
                     <div className="flex items-center justify-between mb-8">
                         {sidebarOpen && (
-                            <div className="flex items-center gap-3">
+                            <Link to="/" className="flex items-center gap-3 cursor-pointer hover:opacity-90" style={{ textDecoration: 'none' }}>
                                 <img
                                     src="/crypto-logo.png"
                                     alt="CryptoHub"
                                     className="h-10 w-10 rounded-full object-cover border-2 border-[rgba(0,217,255,0.3)] shadow-lg transition-all duration-300 hover:scale-110"
                                 />
-                                <h1 className="text-xl font-extrabold text-[#00d9ff]">
+                                <h1 className="text-xl font-extrabold text-[#00d9ff] hover:text-[#00f3ff] transition-colors duration-200" style={{ margin: 0 }}>
                                     CryptoHub
                                 </h1>
-                            </div>
+                            </Link>
                         )}
                         <button
                             onClick={() => setSidebarOpen(!sidebarOpen)}

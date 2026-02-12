@@ -279,6 +279,18 @@ const Contributors = () => {
     return result;
   }, [contributors, debouncedSearch, selectedRankFilter, sortBy]);
 
+  // Lock body scroll when modal is open
+  useEffect(() => {
+    if (showModal) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [showModal]);
+
   const handleOpenModal = useCallback((contributor) => {
     setSelectedContributor(contributor);
     setShowModal(true);

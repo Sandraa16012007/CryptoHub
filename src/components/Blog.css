@@ -856,7 +856,7 @@
   align-items: center;
   gap: 0.75rem;
   font-size: 0.9rem;
-  color: rgba(255, 255, 255, 0.6);
+  color: var(--text-muted);
 }
 
 .breadcrumb-link {
@@ -865,7 +865,7 @@
   gap: 0.5rem;
   background: none;
   border: none;
-  color: rgba(255, 255, 255, 0.6);
+  color: var(--text-muted);
   cursor: pointer;
   transition: color 0.2s;
   font-size: 0.9rem;
@@ -873,7 +873,7 @@
 }
 
 .breadcrumb-link:hover {
-  color: #4559DC;
+  color: var(--primary-color);
 }
 
 .breadcrumb-divider {
@@ -1103,11 +1103,11 @@
 }
 
 .toc-item:hover .toc-number {
-  color: #4559DC;
+  color: var(--primary-color);
 }
 
 .toc-item:hover .toc-text {
-  color: #ffffff;
+  color: var(--text-main);
 }
 
 .toc-number {
@@ -1168,10 +1168,10 @@
   align-items: center;
   gap: 0.5rem;
   padding: 0.85rem 1.75rem;
-  background: linear-gradient(135deg, #4559DC 0%, #9d4edd 100%);
+  background: var(--gradient-primary);
   border: none;
   border-radius: 8px;
-  color: white;
+  color: #ffffff;
   font-size: 0.95rem;
   font-weight: 600;
   cursor: pointer;
@@ -1211,7 +1211,8 @@
   font-size: 1.1rem;
 }
 
-.action-btn:hover {
+.action-btn:hover,
+.action-btn.active {
   background: rgba(69, 89, 220, 0.2);
   border-color: #4559DC;
   color: #4559DC;
