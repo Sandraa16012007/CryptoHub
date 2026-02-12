@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import "./Home.css";
-import { CoinContext } from "../../context/CoinContext";
+import { CoinContext } from "../../context/CoinContextInstance";
 import { Link } from "react-router-dom";
 import { FiSearch, FiArrowUpRight, FiArrowDownRight, FiFilter } from "react-icons/fi";
 import { motion } from "framer-motion";
@@ -16,9 +16,9 @@ const Home = () => {
   const [minPrice, setMinPrice] = useState("");
   const [maxPrice, setMaxPrice] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  const coinPerPage =5;
+  const coinPerPage = 5;
   const totalPages = Math.ceil(displayCoin.length / coinPerPage);
-  const paginatedCoins = displayCoin.slice((currentPage - 1 ) *coinPerPage, currentPage* coinPerPage);
+  const paginatedCoins = displayCoin.slice((currentPage - 1) * coinPerPage, currentPage * coinPerPage);
 
   const inputHandler = (e) => {
     setInput(e.target.value);
@@ -191,7 +191,7 @@ const Home = () => {
               /* VIRTUAL SCROLLER IMPLEMENTATION */
               <Virtuoso
                 useWindowScroll
-                data={paginatedCoins}  
+                data={paginatedCoins}
                 itemContent={(index, item) => (
                   <Link to={`/coin/${item.id}`} className="table-row" key={index}>
                     <div className="col-rank">{item.market_cap_rank}</div>
@@ -242,7 +242,7 @@ const Home = () => {
             </button>
           </div>
         </div>
-        
+
         {/* Load More Button removed because Virtual Scrolling handles infinite lists automatically */}
       </section>
 

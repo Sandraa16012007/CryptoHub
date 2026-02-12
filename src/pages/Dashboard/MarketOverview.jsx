@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTheme } from "../../context/ThemeContext";
-import { CoinContext } from "../../context/CoinContext";
+import { CoinContext } from "../../context/CoinContextInstance";
 import "./MarketOverview.css";
 
 const MarketOverview = () => {
@@ -77,11 +77,10 @@ const MarketOverview = () => {
       <div className="grid grid-cols-1 xl:grid-cols-2 gap-6 mb-6 w-full">
         {/* Top Gainers */}
         <div
-          className={`rounded-2xl p-8 border transition-all duration-300 hover:shadow-2xl w-full ${
-            isDark
+          className={`rounded-2xl p-8 border transition-all duration-300 hover:shadow-2xl w-full ${isDark
               ? "bg-[#14141f] border-[rgba(255,255,255,0.08)] shadow-[0_8px_32px_0_rgba(0,0,0,0.3)]"
               : "bg-white border-gray-200 shadow-xl"
-          }`}
+            }`}
         >
           <div className="flex items-center gap-4 mb-6">
             <div className="w-12 h-12 rounded-xl bg-[rgba(74,222,128,0.1)] border border-[rgba(74,222,128,0.2)] flex items-center justify-center shadow-lg">
@@ -110,11 +109,10 @@ const MarketOverview = () => {
               <div
                 key={coin.id}
                 onClick={() => navigate(`/coin/${coin.id}`)}
-                className={`flex items-center justify-between p-4 rounded-xl cursor-pointer transition-all duration-200 hover:scale-105 ${
-                  isDark
+                className={`flex items-center justify-between p-4 rounded-xl cursor-pointer transition-all duration-200 hover:scale-105 ${isDark
                     ? "bg-[rgba(255,255,255,0.03)] hover:bg-[rgba(255,255,255,0.05)]"
                     : "bg-gray-50 hover:bg-gray-100"
-                }`}
+                  }`}
               >
                 <div className="flex items-center gap-3">
                   <span
@@ -146,11 +144,10 @@ const MarketOverview = () => {
 
         {/* Top Losers */}
         <div
-          className={`rounded-2xl p-8 border transition-all duration-300 hover:shadow-2xl w-full ${
-            isDark
+          className={`rounded-2xl p-8 border transition-all duration-300 hover:shadow-2xl w-full ${isDark
               ? "bg-[#14141f] border-[rgba(255,255,255,0.08)] shadow-[0_8px_32px_0_rgba(0,0,0,0.3)]"
               : "bg-white border-gray-200 shadow-xl"
-          }`}
+            }`}
         >
           <div className="flex items-center gap-4 mb-6">
             <div className="w-12 h-12 rounded-xl bg-[rgba(239,68,68,0.1)] border border-[rgba(239,68,68,0.2)] flex items-center justify-center shadow-lg">
@@ -179,11 +176,10 @@ const MarketOverview = () => {
               <div
                 key={coin.id}
                 onClick={() => navigate(`/coin/${coin.id}`)}
-                className={`flex items-center justify-between p-4 rounded-xl cursor-pointer transition-all duration-200 hover:scale-105 ${
-                  isDark
+                className={`flex items-center justify-between p-4 rounded-xl cursor-pointer transition-all duration-200 hover:scale-105 ${isDark
                     ? "bg-[rgba(255,255,255,0.03)] hover:bg-[rgba(255,255,255,0.05)]"
                     : "bg-gray-50 hover:bg-gray-100"
-                }`}
+                  }`}
               >
                 <div className="flex items-center gap-3">
                   <span
@@ -216,11 +212,10 @@ const MarketOverview = () => {
 
       {/* Trending Cryptocurrencies */}
       <div
-        className={`rounded-2xl p-8 border transition-all duration-300 hover:shadow-2xl w-full ${
-          isDark
+        className={`rounded-2xl p-8 border transition-all duration-300 hover:shadow-2xl w-full ${isDark
             ? "bg-[#14141f] border-[rgba(255,255,255,0.08)] shadow-[0_8px_32px_0_rgba(0,0,0,0.3)]"
             : "bg-white border-gray-200 shadow-xl"
-        }`}
+          }`}
       >
         <div className="flex items-center gap-4 mb-6">
           <div className="w-12 h-12 rounded-xl bg-[rgba(0,217,255,0.1)] border border-[rgba(0,217,255,0.2)] flex items-center justify-center shadow-lg">
@@ -249,11 +244,10 @@ const MarketOverview = () => {
             <div
               key={coin.id}
               onClick={() => navigate(`/coin/${coin.id}`)}
-              className={`p-4 rounded-xl cursor-pointer transition-all duration-200 hover:scale-105 ${
-                isDark
+              className={`p-4 rounded-xl cursor-pointer transition-all duration-200 hover:scale-105 ${isDark
                   ? "bg-[rgba(255,255,255,0.02)] hover:bg-[rgba(255,255,255,0.03)]"
                   : "bg-gray-50 hover:bg-gray-100"
-              }`}
+                }`}
             >
               <div className="flex items-center gap-3 mb-3">
                 <img src={coin.image} alt={coin.name} className="w-10 h-10" />
