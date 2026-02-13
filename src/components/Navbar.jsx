@@ -1,13 +1,11 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { useAuth } from "../context/AuthContext";
-import { useTheme } from "../context/ThemeContext";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { FiLock, FiUser, FiLogOut, FiMail, FiBookmark } from "react-icons/fi";
 import "./Navbar.css";
 
 function Navbar() {
   const { currentUser, logout, isEmailProvider } = useAuth();
-  const { theme } = useTheme();
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -70,7 +68,7 @@ function Navbar() {
       }
     };
 
-    const handleEscapeKey = (event) => {
+    const handleEscape = (event) => {
       if (event.key === 'Escape') {
         if (openDropdown) setOpenDropdown(null);
         if (isProfileOpen) setIsProfileOpen(false);
@@ -110,8 +108,6 @@ function Navbar() {
     { to: "/dashboard", label: "Dashboard" },
     { to: "/leaderboard", label: "Leaderboard" },
   ];
-
-  const linksToRender = currentUser ? authenticatedNavLinks : navLinks;
 
   /* -------------------- JSX -------------------- */
 

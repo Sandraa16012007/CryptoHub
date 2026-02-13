@@ -1,4 +1,4 @@
-/* eslint-disable react-refresh/only-export-components */
+
 import React, {
   createContext,
   useContext,
@@ -19,6 +19,7 @@ import {
   EmailAuthProvider,
   updatePassword,
   sendPasswordResetEmail,
+  sendEmailVerification,
 } from "firebase/auth";
 import { doc, setDoc, getDoc, serverTimestamp } from "firebase/firestore";
 import { auth, db, googleProvider, isFirebaseConfigured } from "../firebase";
@@ -51,7 +52,7 @@ export const AuthProvider = ({ children }) => {
 
     // Re-authenticate the user
     await reauthenticateWithCredential(user, credentials);
-  })
+  }, [currentUser])
 
 
   // signup function
@@ -68,23 +69,33 @@ export const AuthProvider = ({ children }) => {
     );
     const user = userCredential.user;
 
-    await setDoc(doc(db, "users", user.uid), {
-      uid: user.uid,
-      email: user.email,
-      fullName: fullName,
-      createdAt: serverTimestamp(),
-      provider: "email",
+    // Send email verification before Firestore writes so offline errors do not block it
+    await sendEmailVerification(user, {
+      url: window.location.origin + "/dashboard",
+      handleCodeInApp: false,
     });
 
-    // Initialize leaderboard entry for new user
-    await setDoc(doc(db, "leaderboard", user.uid), {
-      uid: user.uid,
-      displayName: fullName,
-      photoURL: null,
-      score: 0,
-      activitiesCount: 0,
-      lastUpdated: serverTimestamp(),
-    });
+    try {
+      await setDoc(doc(db, "users", user.uid), {
+        uid: user.uid,
+        email: user.email,
+        fullName: fullName,
+        createdAt: serverTimestamp(),
+        provider: "email",
+      });
+
+      // Initialize leaderboard entry for new user
+      await setDoc(doc(db, "leaderboard", user.uid), {
+        uid: user.uid,
+        displayName: fullName,
+        photoURL: null,
+        score: 0,
+        activitiesCount: 0,
+        lastUpdated: serverTimestamp(),
+      });
+    } catch (error) {
+      console.error("Error saving user profile data:", error);
+    }
 
     return userCredential;
   }, []);
@@ -165,6 +176,49 @@ export const AuthProvider = ({ children }) => {
 
   }, [reauthenticateUser]);
 
+  //   send email verification
+  const sendVerificationEmail = useCallback(async () => {
+    if (!isFirebaseConfigured() || !auth?.currentUser) {
+      throw new Error('User is not authenticated');
+    }
+    
+    await sendEmailVerification(auth.currentUser, {
+      url: window.location.origin + '/dashboard',
+      handleCodeInApp: false,
+    });
+  }, []);
+
+  //   reload user and check verification status
+  const reloadUserVerificationStatus = useCallback(async () => {
+    if (!isFirebaseConfigured() || !auth?.currentUser) {
+      throw new Error('User is not authenticated');
+    }
+    
+    await auth.currentUser.reload();
+    const user = auth.currentUser;
+    
+    // Update current user state with fresh data
+    if (user) {
+      try {
+        const userDoc = await getDoc(doc(db, "users", user.uid));
+        if (userDoc.exists()) {
+          const userData = userDoc.data();
+          setCurrentUser({
+            ...user,
+            fullName: userData.fullName,
+          });
+        } else {
+          setCurrentUser(user);
+        }
+      } catch (error) {
+        console.error("Error fetching user profile:", error);
+        setCurrentUser(user);
+      }
+    }
+    
+    return user.emailVerified;
+  }, []);
+
   //   reset Password function
   const resetPassword = useCallback(async (email) => {
     if (!isFirebaseConfigured() || !auth) {
@@ -196,7 +250,7 @@ export const AuthProvider = ({ children }) => {
       // Set user immediately and stop loading - don't wait for Firestore
       setCurrentUser(user);
       setLoading(false);
-      
+
       if (user) {
         // Fetch additional user data from Firestore in the background
         try {
@@ -245,8 +299,10 @@ export const AuthProvider = ({ children }) => {
       ChangePassword,
       resetPassword,
       isEmailProvider,
+      sendVerificationEmail,
+      reloadUserVerificationStatus,
     }),
-    [currentUser, loading, signup, login, loginWithGoogle, logout, ChangePassword, resetPassword, isEmailProvider]
+    [currentUser, loading, signup, login, loginWithGoogle, logout, ChangePassword, resetPassword, isEmailProvider, sendVerificationEmail, reloadUserVerificationStatus]
   );
 
   return (
@@ -281,4 +337,4 @@ export const AuthProvider = ({ children }) => {
   );
 };
 
-export default AuthContext;
+
