@@ -1,13 +1,16 @@
 import React, { useState } from 'react';
 import { useAuth } from '../../context/AuthContext';
 import { useTheme } from '../../context/ThemeContext';
-import { notifySuccess } from '../../utils/notify'; // Assuming this exists based on Login.jsx
-import { FiUser, FiMail, FiPhone, FiCalendar, FiMapPin, FiActivity, FiDollarSign, FiSave, FiShield } from 'react-icons/fi';
+import { notifySuccess, notifyError } from '../../utils/notify'; // Assuming this exists based on Login.jsx
+import { FiUser, FiMail, FiPhone, FiCalendar, FiMapPin, FiActivity, FiDollarSign, FiSave, FiShield, FiCamera } from 'react-icons/fi';
 
 const Profile = () => {
     const { currentUser, updateUserProfile } = useAuth();
     const { isDark } = useTheme();
     const [loading, setLoading] = useState(false);
+    const [imageFile, setImageFile] = useState(null);
+    const [imagePreview, setImagePreview] = useState(null);
+    const fileInputRef = React.useRef(null);
 
     const [formData, setFormData] = useState({
         fullName: '',
@@ -38,6 +41,9 @@ const Profile = () => {
                 tradingExperience: currentUser.tradingExperience || 'Beginner',
                 riskTolerance: currentUser.riskTolerance || 'Medium'
             }));
+            if (currentUser.photoURL) {
+                setImagePreview(currentUser.photoURL);
+            }
         }
     }, [currentUser]);
 
@@ -50,14 +56,34 @@ const Profile = () => {
         }));
     };
 
+    const handleImageChange = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            setImageFile(file);
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                setImagePreview(reader.result);
+            };
+            reader.readAsDataURL(file);
+        }
+    };
+
+    const triggerFileInput = () => {
+        fileInputRef.current.click();
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
         try {
-            await updateUserProfile(currentUser.uid, formData);
+            // Exclude read-only fields from the update payload
+            const { email, userId, ...updateData } = formData;
+            await updateUserProfile(currentUser.uid, updateData, imageFile);
             notifySuccess("Profile updated successfully!");
+            setImageFile(null); // Reset file input after successful upload
         } catch (error) {
             console.error("Error updating profile:", error);
+            notifyError(error.message || "Failed to update profile. Please try again.");
         } finally {
             setLoading(false);
         }
@@ -86,6 +112,36 @@ const Profile = () => {
                     <FiSave />
                     {loading ? 'Saving...' : 'Save Changes'}
                 </button>
+            </div>
+
+            <div className={`p-6 mb-6 rounded-2xl flex flex-col items-center justify-center ${sectionClasses}`}>
+                <div className="relative group cursor-pointer" onClick={triggerFileInput}>
+                    <div className="w-32 h-32 rounded-full overflow-hidden border-4 border-[#00d9ff] shadow-[0_0_20px_rgba(0,217,255,0.3)]">
+                        {imagePreview ? (
+                            <img src={imagePreview} alt="Profile" className="w-full h-full object-cover" />
+                        ) : (
+                            <div className={`w-full h-full flex items-center justify-center text-4xl font-bold ${isDark ? 'bg-[#1a1a2e] text-gray-500' : 'bg-gray-100 text-gray-400'}`}>
+                                {formData.fullName ? formData.fullName.charAt(0).toUpperCase() : <FiUser />}
+                            </div>
+                        )}
+                    </div>
+                    <div className="absolute inset-0 bg-black/50 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <FiCamera className="text-white text-3xl" />
+                    </div>
+                    <input
+                        type="file"
+                        ref={fileInputRef}
+                        onChange={handleImageChange}
+                        accept="image/*"
+                        className="hidden"
+                    />
+                </div>
+                <p className={`mt-4 text-sm font-medium ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>
+                    Click to upload new profile picture
+                </p>
+                {imageFile && (
+                    <p className="mt-2 text-xs text-[#00d9ff]">New image selected - Click Save Changes to apply</p>
+                )}
             </div>
 
             <form onSubmit={handleSubmit} className="grid grid-cols-1 lg:grid-cols-2 gap-6">

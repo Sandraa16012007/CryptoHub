@@ -195,7 +195,23 @@ function Navbar() {
                   aria-label="User profile menu"
                   aria-expanded={isProfileOpen}
                 >
-                  <FiUser />
+                  {currentUser.photoURL ? (
+                    <img
+                      src={currentUser.photoURL}
+                      alt="Profile"
+                      style={{
+                        position: 'absolute',
+                        top: 0,
+                        left: 0,
+                        width: '100%',
+                        height: '100%',
+                        objectFit: 'cover',
+                        borderRadius: '50%',
+                      }}
+                    />
+                  ) : (
+                    <FiUser />
+                  )}
                 </button>
 
                 <div className={`profile-dropdown ${isProfileOpen ? 'show' : ''}`}>

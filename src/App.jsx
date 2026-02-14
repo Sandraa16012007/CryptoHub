@@ -1,5 +1,5 @@
 import React, { useEffect, useContext, useRef } from "react";
-import Lenis from "@studio-freight/lenis";
+import Lenis from "lenis";
 import Navbar from "@/components/Navbar";
 import { Routes, Route, useLocation } from "react-router-dom";
 import Home from "@/pages/Home/Home";
@@ -139,13 +139,13 @@ const App = () => {
                 <Route path="/signup" element={<Signup />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/forgot-password" element={<ForgotPassword />} />
-                <Route 
-                  path="/verify-email" 
+                <Route
+                  path="/verify-email"
                   element={
                     <PrivateRoute>
                       <EmailVerification />
                     </PrivateRoute>
-                  } 
+                  }
                 />
                 <Route path="/contributors" element={<Contributors />} />
 

@@ -256,10 +256,11 @@ export const AuthProvider = ({ children }) => {
           if (userDoc.exists()) {
             const userData = userDoc.data();
             console.log("Fetched user data from Firestore:", userData);
-            // Update user with Firestore data
+            // Update user with ALL Firestore data so profile fields persist
             setCurrentUser({
               ...user,
-              fullName: userData.fullName,
+              ...userData,
+              photoURL: userData.photoURL || user.photoURL
             });
 
             // Initialize leaderboard entry if it doesn't exist (in background)
@@ -287,28 +288,91 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   //   update user profile function
-  const updateUserProfile = useCallback(async (uid, data) => {
+  const updateUserProfile = useCallback(async (uid, data, imageFile = null) => {
     if (!isFirebaseConfigured() || !db) {
       throw new Error("Firebase is not configured.");
     }
 
+    let photoURL = data.photoURL;
+
+    // Handle Image Upload if file is provided
+    if (imageFile) {
+      try {
+        console.log("Starting avatar processing...");
+
+        // Step 1: Compress the image client-side using canvas (150x150 JPEG)
+        const compressedBase64 = await new Promise((resolve, reject) => {
+          const img = new Image();
+          img.onload = () => {
+            try {
+              const canvas = document.createElement('canvas');
+              const MAX_SIZE = 150;
+              let width = img.width;
+              let height = img.height;
+
+              if (width > height) {
+                if (width > MAX_SIZE) { height = Math.round(height * MAX_SIZE / width); width = MAX_SIZE; }
+              } else {
+                if (height > MAX_SIZE) { width = Math.round(width * MAX_SIZE / height); height = MAX_SIZE; }
+              }
+
+              canvas.width = width;
+              canvas.height = height;
+              const ctx = canvas.getContext('2d');
+              ctx.drawImage(img, 0, 0, width, height);
+
+              // Convert to base64 JPEG (quality 0.7 = ~10-20KB)
+              const base64 = canvas.toDataURL('image/jpeg', 0.7);
+              console.log("Image compressed, base64 length:", base64.length);
+              URL.revokeObjectURL(img.src); // Clean up
+              resolve(base64);
+            } catch (canvasErr) {
+              reject(canvasErr);
+            }
+          };
+          img.onerror = () => {
+            URL.revokeObjectURL(img.src);
+            reject(new Error("Could not load the selected image."));
+          };
+          img.src = URL.createObjectURL(imageFile);
+        });
+
+        photoURL = compressedBase64;
+        data.photoURL = photoURL;
+        // Note: We store photoURL in Firestore only (not Firebase Auth)
+        // because Auth's updateProfile rejects base64 strings
+
+      } catch (error) {
+        console.error("Error processing avatar:", error);
+        throw new Error("Failed to process profile picture: " + (error.message || "Unknown error"));
+      }
+    }
+
+    // Save to Firestore
     const userRef = doc(db, "users", uid);
+    console.log("Saving profile data to Firestore...", Object.keys(data));
     await updateDoc(userRef, data);
+    console.log("Profile saved to Firestore successfully.");
 
     // Update local state immediately
     setCurrentUser((prev) => ({
       ...prev,
       ...data,
+      photoURL: photoURL || prev.photoURL,
       fullName: data.fullName || prev.fullName
     }));
 
-    // If name changed, update leaderboard too
-    if (data.fullName) {
+    // If name or photo changed, update leaderboard too
+    if (data.fullName || photoURL) {
       try {
         const leaderboardRef = doc(db, "leaderboard", uid);
-        await updateDoc(leaderboardRef, { displayName: data.fullName });
+        const leaderboardUpdate = {};
+        if (data.fullName) leaderboardUpdate.displayName = data.fullName;
+        if (photoURL) leaderboardUpdate.photoURL = photoURL;
+
+        await updateDoc(leaderboardRef, leaderboardUpdate);
       } catch (error) {
-        console.error("Failed to update leaderboard name:", error);
+        console.error("Failed to update leaderboard:", error);
       }
     }
   }, []);

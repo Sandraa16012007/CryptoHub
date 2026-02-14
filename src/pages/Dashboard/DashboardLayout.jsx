@@ -140,14 +140,22 @@ const DashboardLayout = () => {
 
                     {sidebarOpen && (
                         <Link to="/profile" className={`block mb-6 p-4 rounded-xl border transition-all duration-200 cursor-pointer ${location.pathname === '/profile'
-                                ? "bg-[rgba(0,217,255,0.1)] text-[#00d9ff] border border-[rgba(0,217,255,0.2)]"
-                                : isDark
-                                    ? 'bg-[rgba(255,255,255,0.02)] border-[rgba(255,255,255,0.08)] hover:border-[rgba(0,217,255,0.2)]'
-                                    : 'bg-gradient-to-br from-purple-50 to-blue-50 border-purple-200 hover:border-purple-300'
+                            ? "bg-[rgba(0,217,255,0.1)] text-[#00d9ff] border border-[rgba(0,217,255,0.2)]"
+                            : isDark
+                                ? 'bg-[rgba(255,255,255,0.02)] border-[rgba(255,255,255,0.08)] hover:border-[rgba(0,217,255,0.2)]'
+                                : 'bg-gradient-to-br from-purple-50 to-blue-50 border-purple-200 hover:border-purple-300'
                             }`} style={{ textDecoration: 'none' }}>
                             <div className="flex items-center gap-3">
-                                <div className="w-14 h-14 rounded-full bg-gradient-to-br from-[#00d9ff] to-[#00a8cc] flex items-center justify-center text-2xl font-bold shadow-lg ring-4 ring-[rgba(0,217,255,0.1)] text-[#0a0a1a]">
-                                    {getFirstName().charAt(0).toUpperCase()}
+                                <div className="w-14 h-14 rounded-full bg-gradient-to-br from-[#00d9ff] to-[#00a8cc] flex items-center justify-center text-2xl font-bold shadow-lg ring-4 ring-[rgba(0,217,255,0.1)] text-[#0a0a1a] overflow-hidden">
+                                    {currentUser?.photoURL ? (
+                                        <img
+                                            src={currentUser.photoURL}
+                                            alt={getFirstName()}
+                                            className="w-full h-full object-cover"
+                                        />
+                                    ) : (
+                                        getFirstName().charAt(0).toUpperCase()
+                                    )}
                                 </div>
                                 <div className="flex-1 min-w-0">
                                     <p className={`font-bold truncate text-base ${isDark ? 'text-white' : 'text-gray-900'}`}>
