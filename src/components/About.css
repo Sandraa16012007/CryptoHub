@@ -58,8 +58,7 @@
 .about-intro {
   font-size: 1.18rem;
   color: #e0e7ef;
-  margin-bottom: 32px;   /* increased spacing */
-  margin-top: 10px;      /* small gap from heading */
+  margin-bottom: 22px;
   z-index: 1;
   position: relative;
   line-height: 1.75;
@@ -121,7 +120,7 @@
 }
 .about-section h1 {
   font-size: 2.7rem;
-  margin-bottom: 28px;   /* increased spacing */
+  margin-bottom: 18px;
   color: #60a5fa;
   letter-spacing: 1px;
   font-weight: 700;
@@ -131,8 +130,7 @@
 }
 .about-section h2 {
   font-size: 1.45rem;
-  margin-top: 40px;      /* more top spacing */
-  margin-bottom: 18px;   /* added spacing below heading */
+  margin-top: 32px;
   color: #38bdf8;
   font-weight: 600;
   z-index: 1;
